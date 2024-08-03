@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+import {LayOut,LoginRequiredLayout} from './components/outLet/OutLet'
+import ManagerDashboard from './pages/Dashboards/manager/ManagerDashboard'
+import CrewDashboard from './pages/Dashboards/crew/CrewDashboard'
+import DriverDashboard from './pages/Dashboards/driver/DriverDashboard'
+import SupervisorDashboard from './pages/Dashboards/supervisor/SupervisorDashboard'
+import Landing from './pages/Landing/Landing'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createBrowserRouter([
+    {
+      path:'/',
+      element:<LayOut/>,
+      children:[
+        {
+          path:'/',
+          element:<Landing/>
+        }
+      ]
+    },
+    {
+      path:'/',
+      element:<LoginRequiredLayout/>,
+      children:[
+        {
+          path:'/manager',
+          element:<ManagerDashboard/>
+        },
+        {
+          path:'/crew',
+          element:<CrewDashboard/>
+        },
+        {
+          path:'/driver',
+          element:<DriverDashboard/>
+        },
+        {
+          path:'/supervisor',
+          element:<SupervisorDashboard/>
+        },
+      ]
+
+    }
+  ])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <RouterProvider router={router}/>
   )
 }
 
