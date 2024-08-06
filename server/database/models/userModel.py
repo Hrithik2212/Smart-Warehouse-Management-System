@@ -1,6 +1,9 @@
 # app/models/user.py
 from sqlalchemy import Column, Integer, String
-from server.database.database import Base
+try : 
+    from server.database.database import Base
+except :
+    from database import Base # for creating table in db
 
 class User(Base):
     __tablename__ = "users"
