@@ -27,13 +27,3 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-@router.post("/emplyee/" , response_model=Employee)
-def create_employee(emp:EmployeeCreate , db:Session=Depends(get_db)):
-    return employee_controlller.create_employee(db=db , emp=emp)
-
-@router.get("/employees/{employee_id}", response_model=Employee)
-def read_user(employee_id: int, db: Session = Depends(get_db)):
-    db_emp = employee_controlller.get_employee(db, employee_id=employee_id)
-    if db_emp is None:
-        raise HTTPException(status_code=404, detail="Employee Inexistent")
-    return db_emp 
