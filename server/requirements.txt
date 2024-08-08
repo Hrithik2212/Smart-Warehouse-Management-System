@@ -13,3 +13,5 @@ starlette==0.37.2
 typing_extensions==4.12.2
 uvicorn==0.30.5
 pytz==2024.1
+twilio==9.2.3
+python-dotenv==1.0.1

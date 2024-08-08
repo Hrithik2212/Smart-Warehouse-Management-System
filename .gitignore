@@ -26,3 +26,5 @@ client/dist-ssr
 
 venv
 server/venv
+swms-env
+server/.env
