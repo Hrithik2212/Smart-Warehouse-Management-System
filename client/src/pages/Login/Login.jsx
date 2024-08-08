@@ -2,9 +2,6 @@ import React from 'react'
 
 const Login = () => {
   return (
-<<<<<<< HEAD
-    <div>Login</div>
-=======
     <div className="flex items-center justify-center min-h-screen">
       <Card className="w-[350px]">
         <CardHeader>
@@ -30,7 +27,6 @@ const Login = () => {
         </CardFooter>
       </Card>
     </div>
->>>>>>> d6f282e (feat: add landing page)
   )
 }
 

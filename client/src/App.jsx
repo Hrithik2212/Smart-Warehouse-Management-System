@@ -6,6 +6,7 @@ import DriverDashboard from './pages/Dashboards/driver/DriverDashboard'
 import SupervisorDashboard from './pages/Dashboards/supervisor/SupervisorDashboard'
 import Landing from './pages/Landing/Landing'
 import './App.css'
+import Login from './pages/Login/Login'
 
 function App() {
   const router = createBrowserRouter([
@@ -16,7 +17,11 @@ function App() {
         {
           path: '/',
           element: <Landing />
-        }
+        },
+        {
+          path: '/login',
+          element: <Login />
+        },
       ]
     },
     {
