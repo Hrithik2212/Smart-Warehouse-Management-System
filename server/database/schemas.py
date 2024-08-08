@@ -57,3 +57,6 @@ class EmployeeCreate(BaseModel):
     class Config:
         use_enum_values = True
     
+class AlertMessage(BaseModel):
+    phone_number: str
+    message: str
