@@ -2,15 +2,14 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from server.database.database import get_db
-from server.database.schemas import User, UserCreate , EmployeeCreate , Employee
-from server.controllers import user_controller , employee_controlller
+from server.database.schemas import User, UserCreate , EmployeeCreate , Employee , AlertMessage
+from server.controllers import user_controller , employee_controlller , twilio_controller
 
 router = APIRouter()
 
 
 
 @router.get("/")
-
 def read_root():
     return {"Hello": "World"}
 
@@ -27,3 +26,10 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
+
+@router.post("/users/send_alert_message")
+def send_alert_message(alert_message: AlertMessage):
+    metadata = twilio_controller.send_alert_message(phone_number=alert_message.phone_number, message=alert_message.message)
+    if metadata is None:
+        raise HTTPException(status_code=404, detail="Message not sent")
+    return metadata
