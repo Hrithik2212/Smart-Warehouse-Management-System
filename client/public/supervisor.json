@@ -1,0 +1,591 @@
+{
+    "info":{
+                    "id":2,
+                    "name":"Emily Johnson",
+                    "role":"supervisor"
+    },
+    "data":[
+        {
+            "id": "1",
+            "manager": "SHXWPJ",
+            "email": "shxwpj@mail.com",
+            "truck_number": "6BOK13Q",
+            "driver": "nkHHDA",
+            "Crew": 4,
+            "Crew_data": [
+                {
+                    "id": "KGBW0Q",
+                    "name": "QbUedN",
+                    "email": "qbuedn@example.com",
+                    "number": "6045884053"
+                },
+                {
+                    "id": "0TSH2I",
+                    "name": "CIjscl",
+                    "email": "cijscl@example.com",
+                    "number": "5086042682"
+                },
+                {
+                    "id": "5Y7R7E",
+                    "name": "JOcueq",
+                    "email": "jocueq@test.org",
+                    "number": "5516733732"
+                },
+                {
+                    "id": "9WXU4E",
+                    "name": "eOUEsJ",
+                    "email": "eouesj@mail.com",
+                    "number": "6670196674"
+                }
+            ],
+            "arrival": "2024-02-08 08:55:30",
+            "number": "8824892795",
+            "priority_level": 2,
+            "dock": 41,
+            "state": "Pending"
+        },
+        {
+            "id": "2",
+            "manager": "vNUnze",
+            "email": "vnunze@mail.com",
+            "truck_number": "72LXEY6",
+            "driver": "fFqFtY",
+            "Crew": null,
+            "Crew_data": null,
+            "arrival": "2023-03-06 18:49:07",
+            "number": "1788038990",
+            "priority_level": 4,
+            "dock": 6,
+            "state": "Completed"
+        },
+        {
+            "id": "3",
+            "manager": "SnWHvw",
+            "email": "snwhvw@example.com",
+            "truck_number": "N1VRTW8",
+            "driver": "cotKzJ",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "BGWXOQ",
+                    "name": "vZswVj",
+                    "email": "vzswvj@test.org",
+                    "number": "1768496882"
+                }
+            ],
+            "arrival": "2023-12-23 06:48:25",
+            "number": "1005024154",
+            "priority_level": 3,
+            "dock": 6,
+            "state": "Processing"
+        },
+        {
+            "id": "4",
+            "manager": null,
+            "email": null,
+            "truck_number": "70OTECU",
+            "driver": "qHPVVx",
+            "Crew": 4,
+            "Crew_data": [
+                {
+                    "id": "FURPSE",
+                    "name": "HzeFts",
+                    "email": "hzefts@example.com",
+                    "number": "4962677872"
+                },
+                {
+                    "id": "MFI6ID",
+                    "name": "pziSOS",
+                    "email": "pzisos@example.com",
+                    "number": "5727681707"
+                },
+                {
+                    "id": "YQ1TMY",
+                    "name": "fvhnMT",
+                    "email": "fvhnmt@test.org",
+                    "number": "3172322294"
+                },
+                {
+                    "id": "52DQTB",
+                    "name": "AchKjl",
+                    "email": "achkjl@test.org",
+                    "number": "4157511018"
+                }
+            ],
+            "arrival": "2023-04-13 14:31:36",
+            "number": null,
+            "priority_level": 1,
+            "dock": 36,
+            "state": "Pending"
+        },
+        {
+            "id": "5",
+            "manager": "PDlOZZ",
+            "email": "pdlozz@example.com",
+            "truck_number": "BLFLPKN",
+            "driver": "kMnKdz",
+            "Crew": 2,
+            "Crew_data": [
+                {
+                    "id": "PDT3QP",
+                    "name": "RMwYZu",
+                    "email": "rmwyzu@test.org",
+                    "number": "1760010498"
+                },
+                {
+                    "id": "9O8HAY",
+                    "name": "kmbvOm",
+                    "email": "kmbvom@test.org",
+                    "number": "8603634664"
+                }
+            ],
+            "arrival": "2023-01-25 10:54:46",
+            "number": "4782906244",
+            "priority_level": 1,
+            "dock": 15,
+            "state": "Completed"
+        },
+        {
+            "id": "6",
+            "manager": "iKacMx",
+            "email": "ikacmx@example.com",
+            "truck_number": "F4UV8H5",
+            "driver": "BHZIRV",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "V7RPRG",
+                    "name": "oLPMpx",
+                    "email": "olpmpx@mail.com",
+                    "number": "0054866232"
+                }
+            ],
+            "arrival": "2023-11-19 23:24:05",
+            "number": "9170067155",
+            "priority_level": 1,
+            "dock": 0,
+            "state": "Processing"
+        },
+        {
+            "id": "7",
+            "manager": "ZUYXCN",
+            "email": "zuyxcn@mail.com",
+            "truck_number": "NWJHG5Y",
+            "driver": "NzWJfY",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "7SMOOC",
+                    "name": "mDnMHB",
+                    "email": "mdnmhb@example.com",
+                    "number": "5004047450"
+                }
+            ],
+            "arrival": "2024-07-03 06:20:46",
+            "number": "7267077579",
+            "priority_level": 1,
+            "dock": 25,
+            "state": "Processing"
+        },
+        {
+            "id": "8",
+            "manager": "pHZQCG",
+            "email": "phzqcg@example.com",
+            "truck_number": "DT7YSB6",
+            "driver": "EdSPOB",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "R6VPHK",
+                    "name": "OiADRx",
+                    "email": "oiadrx@mail.com",
+                    "number": "6868574308"
+                }
+            ],
+            "arrival": "2024-07-12 16:07:42",
+            "number": "0394418805",
+            "priority_level": 4,
+            "dock": 20,
+            "state": "Completed"
+        },
+        {
+            "id": "9",
+            "manager": "FNWVVM",
+            "email": "fnwvvm@example.com",
+            "truck_number": "NANRWK3",
+            "driver": "AMfsET",
+            "Crew": 5,
+            "Crew_data": [
+                {
+                    "id": "H9X7T3",
+                    "name": "naHHYK",
+                    "email": "nahhyk@test.org",
+                    "number": "5654269517"
+                },
+                {
+                    "id": "T3YQ3E",
+                    "name": "ulvvDE",
+                    "email": "ulvvde@test.org",
+                    "number": "6745112479"
+                },
+                {
+                    "id": "GRCBWU",
+                    "name": "oaoZBQ",
+                    "email": "oaozbq@example.com",
+                    "number": "5788412612"
+                },
+                {
+                    "id": "09RF70",
+                    "name": "VKumvy",
+                    "email": "vkumvy@test.org",
+                    "number": "9762257598"
+                },
+                {
+                    "id": "AL71SC",
+                    "name": "mLDnaW",
+                    "email": "mldnaw@test.org",
+                    "number": "5817116000"
+                }
+            ],
+            "arrival": "2023-10-14 04:15:43",
+            "number": "9989906423",
+            "priority_level": 5,
+            "dock": 28,
+            "state": "Completed"
+        },
+        {
+            "id": "10",
+            "manager": "GmfAkl",
+            "email": "gmfakl@mail.com",
+            "truck_number": "OFEUGQM",
+            "driver": "HreBYb",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "48NEH1",
+                    "name": "CNIqXP",
+                    "email": "cniqxp@test.org",
+                    "number": "3120834061"
+                }
+            ],
+            "arrival": "2023-12-19 16:04:48",
+            "number": "0562711150",
+            "priority_level": 1,
+            "dock": 35,
+            "state": "Pending"
+        },
+        {
+            "id": "11",
+            "manager": "CiAFOB",
+            "email": "ciafob@test.org",
+            "truck_number": "V48VJV4",
+            "driver": "xOuNsk",
+            "Crew": 4,
+            "Crew_data": [
+                {
+                    "id": "LJKSKT",
+                    "name": "JemjcF",
+                    "email": "jemjcf@example.com",
+                    "number": "7646763269"
+                },
+                {
+                    "id": "2UNH5T",
+                    "name": "zfLHml",
+                    "email": "zflhml@test.org",
+                    "number": "0158536679"
+                },
+                {
+                    "id": "Y993M0",
+                    "name": "lDRWIb",
+                    "email": "ldrwib@mail.com",
+                    "number": "6155641316"
+                },
+                {
+                    "id": "4J7SGG",
+                    "name": "UpfWhm",
+                    "email": "upfwhm@example.com",
+                    "number": "1886580988"
+                }
+            ],
+            "arrival": "2024-05-01 01:37:19",
+            "number": "5696429280",
+            "priority_level": 5,
+            "dock": 16,
+            "state": "Pending"
+        },
+        {
+            "id": "12",
+            "manager": "xhowUC",
+            "email": "xhowuc@mail.com",
+            "truck_number": "DBK85DP",
+            "driver": "aNXdks",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "58WE2Q",
+                    "name": "qUSayg",
+                    "email": "qusayg@test.org",
+                    "number": "6697794841"
+                }
+            ],
+            "arrival": "2024-01-03 06:21:56",
+            "number": "2675401006",
+            "priority_level": 4,
+            "dock": 40,
+            "state": "Processing"
+        },
+        {
+            "id": "13",
+            "manager": "awsEcw",
+            "email": "awsecw@example.com",
+            "truck_number": "AKJIZLU",
+            "driver": "XTBmYF",
+            "Crew": 4,
+            "Crew_data": [
+                {
+                    "id": "SU3V4A",
+                    "name": "GBhaed",
+                    "email": "gbhaed@mail.com",
+                    "number": "2581003420"
+                },
+                {
+                    "id": "ICGKBI",
+                    "name": "mTsDUz",
+                    "email": "mtsduz@example.com",
+                    "number": "5468413821"
+                },
+                {
+                    "id": "FT96ZK",
+                    "name": "DOLwta",
+                    "email": "dolwta@mail.com",
+                    "number": "5816886134"
+                },
+                {
+                    "id": "J3HI4B",
+                    "name": "GSWNmm",
+                    "email": "gswnmm@example.com",
+                    "number": "9887971905"
+                }
+            ],
+            "arrival": "2023-09-26 00:29:41",
+            "number": "2788667368",
+            "priority_level": 2,
+            "dock": 30,
+            "state": "Pending"
+        },
+        {
+            "id": "14",
+            "manager": "BYOYtL",
+            "email": "byoytl@example.com",
+            "truck_number": "5HER5AV",
+            "driver": "kvAXYS",
+            "Crew": 5,
+            "Crew_data": [
+                {
+                    "id": "87GSGB",
+                    "name": "PBolvL",
+                    "email": "pbolvl@test.org",
+                    "number": "8895789529"
+                },
+                {
+                    "id": "6LXVYF",
+                    "name": "wqpeEU",
+                    "email": "wqpeeu@mail.com",
+                    "number": "1713803147"
+                },
+                {
+                    "id": "F93S0X",
+                    "name": "wGQqqE",
+                    "email": "wgqqqe@example.com",
+                    "number": "0245042276"
+                },
+                {
+                    "id": "1MHAYQ",
+                    "name": "FVHlVf",
+                    "email": "fvhlvf@test.org",
+                    "number": "1026971982"
+                },
+                {
+                    "id": "WB3YMB",
+                    "name": "yclDAG",
+                    "email": "ycldag@mail.com",
+                    "number": "1540906993"
+                }
+            ],
+            "arrival": "2023-10-19 18:26:32",
+            "number": "4904889937",
+            "priority_level": 3,
+            "dock": 16,
+            "state": "Pending"
+        },
+        {
+            "id": "15",
+            "manager": "lETNzw",
+            "email": "letnzw@test.org",
+            "truck_number": "YOOCR4T",
+            "driver": "otNKcf",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "YINILS",
+                    "name": "nXoJdg",
+                    "email": "nxojdg@mail.com",
+                    "number": "8299343624"
+                }
+            ],
+            "arrival": "2023-07-21 22:11:41",
+            "number": "9199184895",
+            "priority_level": 5,
+            "dock": 22,
+            "state": "Processing"
+        },
+        {
+            "id": "16",
+            "manager": "pBCHRK",
+            "email": "pbchrk@mail.com",
+            "truck_number": "YSAEPC7",
+            "driver": "WdUxrL",
+            "Crew": 3,
+            "Crew_data": [
+                {
+                    "id": "48MCKF",
+                    "name": "QxivQr",
+                    "email": "qxivqr@test.org",
+                    "number": "5468486753"
+                },
+                {
+                    "id": "6RFHD1",
+                    "name": "SOOYaC",
+                    "email": "sooyac@test.org",
+                    "number": "1054476203"
+                },
+                {
+                    "id": "NZZF1J",
+                    "name": "weGdKC",
+                    "email": "wegdkc@test.org",
+                    "number": "8764677061"
+                }
+            ],
+            "arrival": "2024-03-15 04:44:54",
+            "number": "5322525081",
+            "priority_level": 5,
+            "dock": 47,
+            "state": "Completed"
+        },
+        {
+            "id": "17",
+            "manager": "QNaCmq",
+            "email": "qnacmq@mail.com",
+            "truck_number": "C71X4XU",
+            "driver": "sQOUtp",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "PMT45A",
+                    "name": "cKPwvX",
+                    "email": "ckpwvx@test.org",
+                    "number": "8902568038"
+                }
+            ],
+            "arrival": "2024-06-27 01:47:10",
+            "number": "9081366940",
+            "priority_level": 2,
+            "dock": 26,
+            "state": "Pending"
+        },
+        {
+            "id": "18",
+            "manager": "nEekno",
+            "email": "neekno@test.org",
+            "truck_number": "UQNX3SJ",
+            "driver": "sDjuXq",
+            "Crew": 4,
+            "Crew_data": [
+                {
+                    "id": "5M32Y4",
+                    "name": "ATcEJQ",
+                    "email": "atcejq@mail.com",
+                    "number": "9935726617"
+                },
+                {
+                    "id": "7IWFCS",
+                    "name": "fUYoUX",
+                    "email": "fuyoux@mail.com",
+                    "number": "1731713630"
+                },
+                {
+                    "id": "LV16RW",
+                    "name": "ZPNipi",
+                    "email": "zpnipi@test.org",
+                    "number": "5184191212"
+                },
+                {
+                    "id": "GGSS15",
+                    "name": "KczIal",
+                    "email": "kczial@example.com",
+                    "number": "8268286195"
+                }
+            ],
+            "arrival": "2023-04-25 10:28:14",
+            "number": "2590275006",
+            "priority_level": 3,
+            "dock": 46,
+            "state": "Processing"
+        },
+        {
+            "id": "19",
+            "manager": "OIwtgv",
+            "email": "oiwtgv@mail.com",
+            "truck_number": "2UE6TGJ",
+            "driver": "VhkFnV",
+            "Crew": 1,
+            "Crew_data": [
+                {
+                    "id": "5MPIDF",
+                    "name": "IBicaZ",
+                    "email": "ibicaz@example.com",
+                    "number": "9362019697"
+                }
+            ],
+            "arrival": "2023-06-21 11:31:57",
+            "number": "2545659524",
+            "priority_level": 5,
+            "dock": 9,
+            "state": "Completed"
+        },
+        {
+            "id": "20",
+            "manager": "mATNLM",
+            "email": "matnlm@test.org",
+            "truck_number": "ZNNUCM6",
+            "driver": "nVxhRB",
+            "Crew": 3,
+            "Crew_data": [
+                {
+                    "id": "FEMSVG",
+                    "name": "tgNLYq",
+                    "email": "tgnlyq@mail.com",
+                    "number": "5101472207"
+                },
+                {
+                    "id": "LT2TKH",
+                    "name": "dcuTYX",
+                    "email": "dcutyx@test.org",
+                    "number": "9618592491"
+                },
+                {
+                    "id": "KZRF2S",
+                    "name": "yOaHai",
+                    "email": "yoahai@mail.com",
+                    "number": "4221668681"
+                }
+            ],
+            "arrival": "2023-04-02 14:05:21",
+            "number": "1237942780",
+            "priority_level": 2,
+            "dock": 45,
+            "state": "Completed"
+        }
+    ]
+    
+}

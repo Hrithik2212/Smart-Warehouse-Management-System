@@ -1,0 +1,22 @@
+
+input[type="radio"] {
+    display: none;
+}
+  
+
+.custom-radio {
+    width: 15px;
+    height: 15px;
+    border-radius: 6px; 
+    border: 1px solid var(--hover-secondary-btn);
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+  
+
+  input[type="radio"]:checked + .custom-radio {
+    background-color:var(--inverted-text-color) ; 
+    border-color: var(--inverted-text-color); 
+  }

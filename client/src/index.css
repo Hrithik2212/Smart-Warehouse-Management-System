@@ -28,6 +28,7 @@
   /*Background color*/
   --primary-color:rgb(249, 249, 249);
   --secondary-color:rgb(255, 255, 255);
+  --inverted-color:rgb(240, 240, 240);
 
 
   /*text color*/
@@ -42,7 +43,7 @@
   /*Button color*/
   --primary-btn:rgb(85, 34, 208);
   --secondary-btn:rgb(255, 255, 255);
-  --active-btn-color: rgb(249, 249, 249);
+  --active-btn-color: rgb(218, 217, 217);
   --hover-primary-btn:rgb(38, 7, 111);
   --hover-secondary-btn:rgb(164, 164, 164);
 

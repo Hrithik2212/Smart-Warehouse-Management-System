@@ -1,0 +1,33 @@
+/* Define keyframes for expanding and collapsing */
+@keyframes expand {
+    from {
+      height: 0;
+
+      opacity: 0;
+      padding: 0px;
+      
+    }
+    to {
+      height: fit-content;
+      opacity: 1;
+      padding: 15px;
+      
+    }
+  }
+  
+
+.dropdown-content {
+    overflow: hidden;
+    
+    height: 0;
+
+    transition: height 0.5s ease;
+  }
+  
+  /* Triggered state */
+  .dropdown-content.expand {
+    animation: expand 0.5s ease forwards;
+  }
+  
+
+  

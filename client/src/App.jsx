@@ -25,7 +25,13 @@ function App() {
       children:[
         {
           path:'/manager',
-          element:<ManagerDashboard/>
+          element:<ManagerDashboard/>,
+          children:[
+            {
+              path:":page",
+              element:<ManagerDashboard/>
+            }
+          ]
         },
         {
           path:'/crew',
@@ -36,8 +42,14 @@ function App() {
           element:<DriverDashboard/>
         },
         {
-          path:'/supervisor',
-          element:<SupervisorDashboard/>
+          path:'/supervisor/',
+          element:<SupervisorDashboard/>,
+          children:[
+            {
+              path:":page",
+              element:<SupervisorDashboard/>
+            }
+          ]
         },
       ]
 
