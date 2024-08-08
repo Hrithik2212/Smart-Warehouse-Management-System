@@ -53,7 +53,7 @@ const Trucks = () => {
                                   <Card   index={index}>
                                           <h6 className='w-full'>{truck?.dock ? (truck.dock):"--"}</h6>
                                           <h6 className='flex text-center max-lg:hidden  w-full justify-center items-center' >{truck.truck_number}</h6>
-                                          <h6 className='max-lg:hidden text-center  w-full max-md:flex-1'>{truck?.supervisor ? (truck.supervisor):("--")}</h6>
+                                          <h6 className='max-lg:hidden text-center  w-full'>{truck?.supervisor ? (truck.supervisor):("--")}</h6>
                                           <h6 className=' w-full text-center '>{new Date(truck.arrival).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</h6>
                                           <h6 className=' w-full'>{truck.priority_level}</h6>
                                   </Card>

@@ -35,7 +35,13 @@ function App() {
         },
         {
           path:'/crew',
-          element:<CrewDashboard/>
+          element:<CrewDashboard/>,
+          children:[
+            {
+              path:":page",
+              element:<CrewDashboard/>
+            }
+          ]
         },
         {
           path:'/driver',

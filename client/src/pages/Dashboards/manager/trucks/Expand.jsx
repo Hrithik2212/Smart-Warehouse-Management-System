@@ -28,7 +28,7 @@ const Expand = ({truck}) => {
                         </div>
             </div>
             <div className='flex flex-col justify-end z-0 relative'>
-                        <button className='bg-[var(--primary-btn)] text-[var(--text-secondary-color)] max-md:mx-auto py-3 px-6 rounded-md'>Request</button>
+                        <button className='bg-[var(--primary-btn)] text-[var(--text-secondary-color)] max-md:mx-auto py-3 px-6 rounded-md'>Raise Request</button>
             </div>
     </DropDown>
     
