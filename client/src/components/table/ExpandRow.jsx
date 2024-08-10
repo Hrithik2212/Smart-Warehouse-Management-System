@@ -1,6 +1,8 @@
 import React from 'react'
 
-const Expand = ({children}) => {
+
+
+const ExpandRow = ({children}) => {
   return (
     <div className=' w-full  text-left max-md:gap-10 flex max-md:flex-col max-md:flex-wrap  justify-between dropdown-content h-0 expand' >
     {children}        
@@ -8,4 +10,4 @@ const Expand = ({children}) => {
   )
 }
 
-export default Expand
+export default ExpandRow

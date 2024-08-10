@@ -1,8 +1,8 @@
 import React from 'react'
-import DropDown from '../../../../components/table/DropDown'
+import ExpandRow from '../../../../components/table/ExpandRow'
 const Expand = ({truck}) => {
   return (
-    <DropDown>
+    <ExpandRow>
             <div className='flex justify-between  md:justify-center items-center mx-auto gap-5 md:gap-20 w-[90%] md:w-[60%]  '>
                         <div className='w-full  whitespace-nowrap'>
                             <h2 >Truck Number</h2>
@@ -21,7 +21,7 @@ const Expand = ({truck}) => {
                             <h6 className=''>{truck.state}</h6>
                         </div>
             </div>
-    </DropDown>
+    </ExpandRow>
     
   )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
-import DropDown from '../../../../components/table/DropDown'
+import ExpandRow from '../../../../components/table/ExpandRow'
 const Expand = ({truck}) => {
   return (
-    <DropDown>
+    <ExpandRow>
             <div style={{"fontSize":"var(--text-font-size)"}}  className='w-full  '>
                     
                       <table className='w-full border-collapse text-center align-middle'>
@@ -30,7 +30,7 @@ const Expand = ({truck}) => {
             <div className='flex flex-col justify-end z-0 relative'>
                         <button className='bg-[var(--primary-btn)] text-[var(--text-secondary-color)] max-md:mx-auto py-3 px-6 rounded-md'>Request</button>
             </div>
-    </DropDown>
+    </ExpandRow>
     
   )
 }

@@ -7,6 +7,7 @@ import './index.css'
 const NavBar=()=>{
     return(
       <nav className='w-full h-full text-[var(--text-primary-color)] py-5 px-10 flex justify-between nav-shadow mb-5'>
+        
           <section style={{"fontSize":"var(--secondary-font-size)"}} className='font-[var(--secondary-font-weight)] flex gap-3'>
               <MdAddTask size={30} className='text-[var(--inverted-text-color)]'/>
               <h1 className=''>Smart Warehouse</h1>
