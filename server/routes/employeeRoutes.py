@@ -40,7 +40,7 @@ def assign_crew(dock_id: int, team_size: int = 5, db: Session = Depends(get_db))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@router.post('/employees/truncate_used_employee_set')
+@router.post('/employees/truncate_used_employee_set/')
 def clear_used_employee_set(db:Session=Depends(get_db)):
     employee_schedule_controller.truncate_used_employee_set(db)
     return {'Success':True}
