@@ -19,7 +19,7 @@ const Expand = ({employee}) => {
                             <h6>{employee?.Email}</h6>
                             <h6 className=''>{employee?.Mobile}</h6>
                             <h6 className=''>{employee?.EmploymentType}</h6>
-                            <h6 className=''>{employee?.HeavyMachinery}</h6>
+                            <h6 className=''>{employee.HeavyMachinery ? ("Yes"):("No")}</h6>
                             <h6 className=''>{employee?.Experience}</h6>
                             <h6 className=''>{employee?.Gender}</h6>
                            

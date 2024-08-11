@@ -58,6 +58,25 @@ export const AuthProvider = () =>{
                 setAuthToken(data)
                 localStorage.setItem('authTokens', JSON.stringify(data))
                 setUser(jwtDecode(data.access_token))
+
+                switch (jwtDecode(data.access_token).role) {
+                    case 'manager':
+                        navigate('/manager');
+                        break;
+                    case 'supervisor':
+                        navigate('/supervisor');
+                        break;
+                    case 'staff':
+                        navigate('/manager');
+                        break;
+                    case 'driver':
+                        navigate('/driver');
+                        break;
+                    default:
+                        navigate('/'); 
+                    }
+        
+                
                 
                 
             }
@@ -71,11 +90,11 @@ export const AuthProvider = () =>{
     }
     useEffect(()=>{
 
-        if(location.pathname ==="/" || location.pathname ==="/login" || true){
+        if(location.pathname ==="/" || location.pathname ==="/login" ||true){
             
         }
         else{
-            const  role  = user?.role;
+        const  role  = user?.role;
 
         switch (role) {
             case 'manager':

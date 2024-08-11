@@ -29,7 +29,6 @@ const Employee = () => {
   },[data])
   return (
     <div className='w-full max-md:mt-10'>
-        <RadioButtonGroup selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
     
         <TableOutLet>
                 
@@ -37,7 +36,7 @@ const Employee = () => {
                 <TableHead>
                             <h2 className='w-full'>Name</h2>
                             <h2 className='w-full max-lg:hidden'>Email</h2>
-                            <h2 className="max-lg:hidden w-full">Role</h2>
+                            <h2 className="w-full">Role</h2>
                             <h2 className='w-full'>Gender</h2>
                             
                 </TableHead>
@@ -47,7 +46,7 @@ const Employee = () => {
                                   <Card   index={index}>
                                           <h6 className='w-full'>{employee?.Name}</h6>
                                           <h6 className='flex text-center max-lg:hidden  w-full justify-center items-center' >{employee.Email}</h6>
-                                          <h6 className='max-lg:hidden text-center  w-full'>{employee?.EmploymentType}</h6>
+                                          <h6 className=' text-center  w-full'>{employee?.EmploymentType}</h6>
                                           <h6 className=' w-full text-center '>{employee?.Gender}</h6>
                                          
                                   </Card>
