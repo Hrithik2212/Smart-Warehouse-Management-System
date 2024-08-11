@@ -1,32 +1,27 @@
-import React, {  useState } from 'react'
+import React, {  useCallback, useContext, useEffect, useState } from 'react'
 import './index.css'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
 import { VscHistory } from "react-icons/vsc";
 import Progress from '../../../components/progress/Progress';
 import useFetch from '../../../hooks/useFetch';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Trucks from './trucks/Trucks';
 import History from './history/History';
 import { SlPeople } from "react-icons/sl";
 import Crew from './crew/Crew';
+import AuthContext from '@/context/AuthContext';
 
 const ManagerDashboard = () => {
-  const {data,loading,error}=useFetch("/")
+
+
+
 
   const {page}=useParams()
   const activePage = page || '';
 
-  const [showDetails,setShowDetails]=useState(0)
 
-    const changeDetails = (index)=>{
-        if(showDetails===index){
-            setShowDetails(null);
-        }
-        else{
-            setShowDetails(index);
-        }
-    }
+  
 
   
 
@@ -34,6 +29,7 @@ const ManagerDashboard = () => {
   
   
     const sideBarData={
+      "head":"Manager",
       "children":[
         {
           "title":"Trucks",

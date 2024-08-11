@@ -31,7 +31,18 @@ async def get_current_user(request: Request, db: Session = Depends(get_db)):
 
 @router.post("/token", response_model=Token)
 def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    print(f"Form data: {form_data}")
     db_user = user_controller.get_user(db, email=form_data.username)
     if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    if not verify_password(form_data.password, db_user.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return user_controller.login(db_user)
+

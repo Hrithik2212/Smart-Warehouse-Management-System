@@ -1,17 +1,36 @@
 import {createContext,useState,useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
 import { jwtDecode } from "jwt-decode";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { MdAddTask } from "react-icons/md";
+import './index.css'
+const NavBar=()=>{
+    return(
+      <nav className='w-full h-full text-[var(--text-primary-color)] py-5 px-10 flex justify-between nav-shadow mb-5'>
+        
+          <section style={{"fontSize":"var(--secondary-font-size)"}} className='font-[var(--secondary-font-weight)] flex gap-3'>
+              <MdAddTask size={30} className='text-[var(--inverted-text-color)]'/>
+              <h1 className=''>Smart Warehouse</h1>
+          </section>
+          <section className='relative'>
+              <span className='bg-[var(--warning-text-color)] rounded-full w-[20px] h-[20px] text-[15px] text-white  flex items-center justify-center bottom-4 left-4 absolute'>1</span>
+              <IoMdNotificationsOutline size={30}/>
+          </section>
+        
+      </nav>
+    )
+}
 
 const API_BASE_URL = "http://127.0.0.1:8000"
 const AuthContext = createContext()
 
 export default AuthContext
 
-export const AuthProvider = ({children}) =>{
+export const AuthProvider = () =>{
     let  navigate= useNavigate();
     let [authToken,setAuthToken] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user,setUser]= useState(()=> localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null)
-
+    const location = useLocation();
     const [loading, setLoading] = useState(true);
     
 
@@ -39,25 +58,7 @@ export const AuthProvider = ({children}) =>{
                 setAuthToken(data)
                 localStorage.setItem('authTokens', JSON.stringify(data))
                 setUser(jwtDecode(data.access_token))
-                console.log(user)
-                const  role  = user.role;
-
-                switch (role) {
-                    case 'manager':
-                        navigate('/manager');
-                        break;
-                    case 'supervisor':
-                        navigate('/supervisor');
-                        break;
-                    case 'staff':
-                        navigate('/manager');
-                        break;
-                    case 'driver':
-                        navigate('/driver');
-                        break;
-                    default:
-                        navigate('/login'); 
-                }
+                
                 
             }
             else{
@@ -68,6 +69,36 @@ export const AuthProvider = ({children}) =>{
             console.log(err)
         }
     }
+    useEffect(()=>{
+
+        if(location.pathname ==="/" || location.pathname ==="/login" || true){
+            
+        }
+        else{
+            const  role  = user?.role;
+
+        switch (role) {
+            case 'manager':
+                navigate('/manager');
+                break;
+            case 'supervisor':
+                navigate('/supervisor');
+                break;
+            case 'staff':
+                navigate('/manager');
+                break;
+            case 'driver':
+                navigate('/driver');
+                break;
+            default:
+                navigate('/'); 
+            }
+
+        }
+
+        
+        
+    },[user])
     const logoutUser = ()=>{
         setAuthToken(null)
         setUser(null)
@@ -110,9 +141,15 @@ export const AuthProvider = ({children}) =>{
         authToken:authToken,
         registerUser:registerUser
     }
+    
     return(
         <AuthContext.Provider value={contextData}>
-            {children}
+            <div>
+                <NavBar/>
+                <div>
+                    <Outlet/>
+                </div>
+            </div>
         </AuthContext.Provider>
     )
 }
