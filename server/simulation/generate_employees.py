@@ -16,14 +16,14 @@ employee_id = 1
 male_count = 0
 female_count = 0
 heavy_machinery_count = 0
-staff_experience_over_5 = 0
+crew_experience_over_5 = 0
 
 employment_types = {
     "manager": 2,
     "supervisor": 5,
     "security": 2,
     "admin": 1,
-    "staff": 31
+    "crew": 31
 }
 
 for emp_type, count in employment_types.items():
@@ -43,10 +43,10 @@ for emp_type, count in employment_types.items():
         if heavy_machinery:
             heavy_machinery_count += 1
         
-        if emp_type == "staff":
+        if emp_type == "crew":
             experience = random.randint(1, 10)
             if experience > 5:
-                staff_experience_over_5 += 1
+                crew_experience_over_5 += 1
         else:
             experience = random.randint(5, 15)
         
@@ -83,12 +83,12 @@ while heavy_machinery_count / len(employees) < 0.35:
             heavy_machinery_count += 1
             break
 
-# Adjust staff experience if needed
-while staff_experience_over_5 < 10:
+# Adjust crew experience if needed
+while crew_experience_over_5 < 10:
     for emp in employees:
-        if emp["employment_type"] == "staff" and emp["experience"] <= 5:
+        if emp["employment_type"] == "crew" and emp["experience"] <= 5:
             emp["experience"] = random.randint(6, 10)
-            staff_experience_over_5 += 1
+            crew_experience_over_5 += 1
             break
 
 # Write to JSON file
@@ -98,4 +98,4 @@ with open('employees.json', 'w') as f:
 print(f"Total employees: {len(employees)}")
 print(f"Male to Female ratio: {male_count}:{female_count}")
 print(f"Employees with heavy machinery skills: {heavy_machinery_count}")
-print(f"Staff with more than 5 years experience: {staff_experience_over_5}")
+print(f"Staff with more than 5 years experience: {crew_experience_over_5}")

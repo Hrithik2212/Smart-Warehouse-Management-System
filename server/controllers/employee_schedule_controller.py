@@ -28,27 +28,27 @@ def update_resting_employees(session:Session):
 def count_working_employees(db :Session) :
     # pass
     return {
-        'staff_count' : db.query(Employee).filter(Employee.employment_type == EmploymentTypeEnum.staff).count() ,
+        'crew_count' : db.query(Employee).filter(Employee.employment_type == EmploymentTypeEnum.crew).count() ,
         'supervisor_count' : db.query(Employee).filter(Employee.employment_type == EmploymentTypeEnum.supervisor).count()
     }
 
 def check_and_clear_used_set(db: Session):
     count = count_working_employees(db)
-    used_staff_count = db.query(func.count(UsedEmployeeSet.id)).join(Employee).filter(
-        Employee.employment_type == EmploymentTypeEnum.staff
+    used_crew_count = db.query(func.count(UsedEmployeeSet.id)).join(Employee).filter(
+        Employee.employment_type == EmploymentTypeEnum.crew
     ).scalar()
     used_supervisor_count = db.query(func.count(UsedEmployeeSet.id)).join(Employee).filter(
         Employee.employment_type == EmploymentTypeEnum.supervisor
     ).scalar()
-    cycle_staff = False 
+    cycle_crew = False 
     cycle_supervisor = False 
-    if (0.8 * count['staff_count'] < used_staff_count ):
+    if (0.8 * count['crew_count'] < used_crew_count ):
         # Delete only employees who are not resting
-        cycle_staff = True 
+        cycle_crew = True 
         db.query(UsedEmployeeSet).filter(
             and_(
                 UsedEmployeeSet.id == Employee.id,
-                Employee.employment_type == EmploymentTypeEnum.staff,
+                Employee.employment_type == EmploymentTypeEnum.crew,
                 Employee.resting_bool == False  
             )
         ).delete(synchronize_session='fetch')
@@ -65,7 +65,7 @@ def check_and_clear_used_set(db: Session):
         ).delete(synchronize_session='fetch')
         db.commit()
 
-    return {'cycle_staff':cycle_staff , 'cycle_supervisor':cycle_supervisor}
+    return {'cycle_crew':cycle_crew , 'cycle_supervisor':cycle_supervisor}
 
 def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 5):
     # Step 1: Update resting employees
@@ -89,26 +89,26 @@ def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 
     if not supervisor:
         raise HTTPException(status_code=400, detail="No available supervisor")
 
-    # Step 5: Select staff members
-    staff_members = [emp for emp in available_employees if emp.employment_type == EmploymentTypeEnum.staff]
+    # Step 5: Select crew members
+    crew_members = [emp for emp in available_employees if emp.employment_type == EmploymentTypeEnum.crew]
     
-    experienced_staff = next((emp for emp in staff_members if emp.experience >= 5), None)
-    if not experienced_staff:
-        raise HTTPException(status_code=400, detail="No available staff with 5+ years experience")
+    experienced_crew = next((emp for emp in crew_members if emp.experience >= 5), None)
+    if not experienced_crew:
+        raise HTTPException(status_code=400, detail="No available crew with 5+ years experience")
 
-    heavy_machinery_staff = next((emp for emp in staff_members if emp.heavy_machinery), None)
-    if not heavy_machinery_staff:
-        raise HTTPException(status_code=400, detail="No available staff with heavy machinery experience")
+    heavy_machinery_crew = next((emp for emp in crew_members if emp.heavy_machinery), None)
+    if not heavy_machinery_crew:
+        raise HTTPException(status_code=400, detail="No available crew with heavy machinery experience")
 
-    # Remove selected staff from the pool
-    staff_members = [emp for emp in staff_members if emp not in [experienced_staff, heavy_machinery_staff]]
+    # Remove selected crew from the pool
+    crew_members = [emp for emp in crew_members if emp not in [experienced_crew, heavy_machinery_crew]]
 
-    # Select remaining staff members to fill the team based on gender ratio
-    remaining_staff_count = team_size - 3  # Supervisor + Experienced + Heavy Machinery
-    selected_staff = random.sample(staff_members, min(remaining_staff_count, len(staff_members)))
+    # Select remaining crew members to fill the team based on gender ratio
+    remaining_crew_count = team_size - 3  # Supervisor + Experienced + Heavy Machinery
+    selected_crew = random.sample(crew_members, min(remaining_crew_count, len(crew_members)))
 
     # Combine all selected employees
-    selected_crew = [supervisor, experienced_staff, heavy_machinery_staff] + selected_staff
+    selected_crew = [supervisor, experienced_crew, heavy_machinery_crew] + selected_crew
 
     # Ensure gender diversity (70% males, 30% females)
     num_males = int(0.7 * team_size)
@@ -120,12 +120,12 @@ def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 
     # Adjust male/female count to match required ratio
     if len(males_in_crew) < num_males:
         males_needed = num_males - len(males_in_crew)
-        extra_males = random.sample([emp for emp in staff_members if emp.gender == GenderEnum.male], males_needed)
+        extra_males = random.sample([emp for emp in crew_members if emp.gender == GenderEnum.male], males_needed)
         females_in_crew = females_in_crew[:num_females]  # Trim females if necessary
         selected_crew = males_in_crew + extra_males + females_in_crew
     elif len(females_in_crew) < num_females:
         females_needed = num_females - len(females_in_crew)
-        extra_females = random.sample([emp for emp in staff_members if emp.gender == GenderEnum.female], females_needed)
+        extra_females = random.sample([emp for emp in crew_members if emp.gender == GenderEnum.female], females_needed)
         males_in_crew = males_in_crew[:num_males]  # Trim males if necessary
         selected_crew = males_in_crew + females_in_crew + extra_females
 

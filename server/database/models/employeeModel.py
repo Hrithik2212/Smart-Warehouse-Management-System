@@ -15,7 +15,7 @@ import enum
 
 
 class EmploymentTypeEnum(enum.Enum):
-    staff = "staff"
+    crew = "crew"
     manager = "manager"
     supervisor = "supervisor"
     security = "security"
@@ -40,7 +40,7 @@ class Employee(Base):
     resting_bool = Column(Boolean, default=False, nullable=False)
     resting_until = Column(DateTime, nullable=True)
     used_set = relationship("UsedEmployeeSet", back_populates="employee", uselist=False)
-    trucks = relationship("Truck", secondary=truck_employee_association, back_populates="employees")
+    trucks = relationship("Truck", secondary=truck_employee_association, back_populates="employees" )
 
 class UsedEmployeeSet(Base):
     __tablename__ = "used_employees_set"

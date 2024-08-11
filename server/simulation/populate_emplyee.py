@@ -9,7 +9,7 @@ with open("employees.json", "r") as f:
     employee_data = json.load(f)
 
 # Truncate the employee table
-response = requests.post(f"{base_url}/truncate_employee/")
+response = requests.post(f"{base_url}/employees/truncate_employee/")
 if response.status_code == 200:
     print("Existing employees deleted successfully.")
 else:

@@ -7,8 +7,8 @@ except :
 
 truck_employee_association = Table(
     'truck_employee', Base.metadata,
-    Column('truck_id', Integer, ForeignKey('trucks.truck_id')),
-    Column('employee_id', Integer, ForeignKey('employees.id'))
+    Column('truck_id', Integer, ForeignKey('trucks.truck_id') , nullable=True),
+    Column('employee_id', Integer, ForeignKey('employees.id') , nullable=True)
 )
 
 

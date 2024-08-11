@@ -39,7 +39,7 @@ class TokenData(BaseModel):
 
 
 class EmploymentTypeEnum(str, Enum):
-    staff = "staff"
+    crew = "crew"
     manager = "manager"
     supervisor = "supervisor"
     security = "security"
