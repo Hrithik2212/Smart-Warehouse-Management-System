@@ -14,11 +14,16 @@ def create_employee(db:Session ,emp :EmployeeCreate ):
                     gender = emp.gender ,
                     attendance_present= emp.attendance_present ,
                     resting_bool = emp.resting_bool ,
+                    resting_until = emp.resting_until
     )
     db.add(db_employee)
     db.commit()
     db.refresh(db_employee)
     return db_employee
+
+def delete_existing_employees(db:Session):
+    db.query(Employee).delete()
+    db.commit()
 
 def get_employee(db:Session , id:int):
     return db.query(Employee).filter(Employee.id==id).first()

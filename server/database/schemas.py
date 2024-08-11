@@ -2,7 +2,7 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 from enum import Enum
-from datetime import time
+from datetime import datetime
 
 class UserCreate(BaseModel):
     name: str
@@ -29,17 +29,25 @@ class GenderEnum(str, Enum):
     male = "male"
     female = "female"
 
+
 class Employee(BaseModel):
+    id: int
     name: str
     employment_type: EmploymentTypeEnum
-    email : str
-    mobile : str 
+    email: str
+    mobile: str
     heavy_machinery: bool
     experience: int
     gender: GenderEnum
     attendance_present: bool = Field(default=True)
     resting_bool: bool = Field(default=False)
-    resting_until: Optional[time] = None
+    resting_until: Optional[datetime] = None
+
+    class Config:
+        orm_mode = True
+        json_encoders = {
+            datetime: lambda v: v.isoformat() if v else None
+        }
 
 class EmployeeCreate(BaseModel):
     id: int
@@ -52,7 +60,7 @@ class EmployeeCreate(BaseModel):
     gender: GenderEnum
     attendance_present: bool = Field(default=True)
     resting_bool: bool = Field(default=False)
-    resting_until: Optional[time] = None
+    resting_until: Optional[datetime] = None
 
     class Config:
         use_enum_values = True
