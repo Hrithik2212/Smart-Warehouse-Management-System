@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
 from sqlalchemy.orm import Session
 import pandas as pd
-from server.database import get_db
+from server.database.database import get_db
 from server.database.models.truckModel import Truck , Goods
 from server.controllers import truck_scehdule_controller
 
