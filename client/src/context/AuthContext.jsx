@@ -1,8 +1,9 @@
 import {createContext,useState,useEffect} from 'react'
-import {Outlet, useNavigate} from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
 import { jwtDecode } from "jwt-decode";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdAddTask } from "react-icons/md";
+import './index.css'
 const NavBar=()=>{
     return(
       <nav className='w-full h-full text-[var(--text-primary-color)] py-5 px-10 flex justify-between nav-shadow mb-5'>
@@ -29,7 +30,7 @@ export const AuthProvider = () =>{
     let  navigate= useNavigate();
     let [authToken,setAuthToken] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user,setUser]= useState(()=> localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null)
-
+    const location = useLocation();
     const [loading, setLoading] = useState(true);
     
 
@@ -57,25 +58,7 @@ export const AuthProvider = () =>{
                 setAuthToken(data)
                 localStorage.setItem('authTokens', JSON.stringify(data))
                 setUser(jwtDecode(data.access_token))
-                console.log(user)
-                const  role  = user.role;
-
-                switch (role) {
-                    case 'manager':
-                        navigate('/manager');
-                        break;
-                    case 'supervisor':
-                        navigate('/supervisor');
-                        break;
-                    case 'staff':
-                        navigate('/manager');
-                        break;
-                    case 'driver':
-                        navigate('/driver');
-                        break;
-                    default:
-                        navigate('/login'); 
-                }
+                
                 
             }
             else{
@@ -86,6 +69,36 @@ export const AuthProvider = () =>{
             console.log(err)
         }
     }
+    useEffect(()=>{
+
+        if(location.pathname ==="/" || location.pathname ==="/login" || true){
+            
+        }
+        else{
+            const  role  = user?.role;
+
+        switch (role) {
+            case 'manager':
+                navigate('/manager');
+                break;
+            case 'supervisor':
+                navigate('/supervisor');
+                break;
+            case 'staff':
+                navigate('/manager');
+                break;
+            case 'driver':
+                navigate('/driver');
+                break;
+            default:
+                navigate('/'); 
+            }
+
+        }
+
+        
+        
+    },[user])
     const logoutUser = ()=>{
         setAuthToken(null)
         setUser(null)
@@ -128,7 +141,7 @@ export const AuthProvider = () =>{
         authToken:authToken,
         registerUser:registerUser
     }
-    console.log(user)
+    
     return(
         <AuthContext.Provider value={contextData}>
             <div>

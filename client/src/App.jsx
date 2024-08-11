@@ -7,6 +7,7 @@ import Landing from './pages/Landing/Landing'
 import './App.css'
 import Login from './pages/Login/Login'
 import { AuthProvider } from './context/AuthContext'
+import AdminDashboard from './pages/Dashboards/admin/AdminDashboard'
 
 
 function App() {
@@ -23,6 +24,18 @@ function App() {
           path: '/login',
           element: <Login />
         },
+
+        {
+          path: '/admin',
+          element: <AdminDashboard />,
+          children: [
+            {
+              path: ":page",
+              element: <AdminDashboard />
+            }
+          ]
+        },
+
         {
           path: '/manager',
           element: <ManagerDashboard />,
@@ -45,7 +58,13 @@ function App() {
         },
         {
           path: '/driver',
-          element: <DriverDashboard />
+          element: <DriverDashboard />,
+          children: [
+            {
+              path: ":page",
+              element: <DriverDashboard />
+            }
+          ]
         },
         {
           path: '/supervisor/',

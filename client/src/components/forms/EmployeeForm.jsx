@@ -49,7 +49,7 @@ const EmployeeForm = () => {
     };
 
     return (
-        <div className="mt-10 p-6 bg-white rounded-lg shadow-md">
+        <div className="mb-10 p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Employee Form</h2>
             <Formik
                 initialValues={initialValues}

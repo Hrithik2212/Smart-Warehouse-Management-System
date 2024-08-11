@@ -20,6 +20,7 @@ const SupervisorDashboard = () => {
   
 
   const sideBarData={
+    "head":"Supervisor",
     "children":[
       {
         "title":"Trucks",

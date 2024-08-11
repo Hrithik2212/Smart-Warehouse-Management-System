@@ -1,14 +1,12 @@
 import React, {  useState } from 'react'
-import './index.css'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
 import { VscHistory } from "react-icons/vsc";
 import Progress from '../../../components/progress/Progress';
 import useFetch from '../../../hooks/useFetch';
 import { useParams } from 'react-router-dom';
-import Trucks from './trucks/Trucks';
-import History from './history/History';
 import { SlPeople } from "react-icons/sl";
+import EmployeeForm from '@/components/forms/EmployeeForm';
 
 
 const CrewDashboard = () =>  {
@@ -34,17 +32,12 @@ const CrewDashboard = () =>  {
   
   
     const sideBarData={
-      "head":"Staff",
+        "head":"Admin",
       "children":[
         {
-          "title":"Trucks",
-          "label":<CiDeliveryTruck size={30}/>,
+          "title":"Add Employee",
+          "label":<SlPeople size={25}/>,
           "path":""
-        },
-        {
-          "title":"History",
-          "label":<VscHistory size={25}/>,
-          "path":"history"
         },
         
       ],
@@ -57,17 +50,15 @@ const CrewDashboard = () =>  {
       <section className='w-full  flex md:justify-between max-md:flex-col'>
          
         
-          <div className='w-full h-fit max-md:order-2'>
-            {activePage==='' && (<Trucks />)}
-            {activePage==='history' && (<History />)}
+          <div className='w-full h-fit '>
+                <EmployeeForm/>
+          
            
           </div>
             
                         
             
-            <div className='max-md:order-1'>
-              <Progress/>
-            </div>
+            
         </section>
         
     </div>

@@ -13,15 +13,8 @@ import Crew from './crew/Crew';
 import AuthContext from '@/context/AuthContext';
 
 const ManagerDashboard = () => {
-  const {user} = useContext(AuthContext);
-  let  navigate= useNavigate();
 
 
-  useEffect(()=>{
-    if(!user){
-      navigate("/login")
-    }
-  },[])
 
 
   const {page}=useParams()
@@ -36,6 +29,7 @@ const ManagerDashboard = () => {
   
   
     const sideBarData={
+      "head":"Manager",
       "children":[
         {
           "title":"Trucks",
