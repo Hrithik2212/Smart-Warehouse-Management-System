@@ -1,7 +1,7 @@
 # app/controllers/user_controller.py
 from sqlalchemy.orm import Session
 from server.database.models.userModel import User
-from server.database.schemas import UserCreate
+from server.database.schemas import UserCreate 
 
 def create_user(db: Session, user: UserCreate):
     db_user = User(name=user.name, email=user.email)
