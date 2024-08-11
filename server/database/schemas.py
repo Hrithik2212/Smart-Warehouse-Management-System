@@ -97,6 +97,7 @@ class TruckCreate(BaseModel):
     truck_number:str
     dock_assigned: Optional[int] = None
     driver_id: int
+    supervisor_id:int
 
     class Config:
         from_attributes = True
@@ -106,6 +107,7 @@ class TruckResponse(BaseModel):
     arrival_time: datetime
     dock_assigned: Optional[int] = None
     driver: Employee
+    supervisor:Employee
 
     class Config:
         orm_mode = True

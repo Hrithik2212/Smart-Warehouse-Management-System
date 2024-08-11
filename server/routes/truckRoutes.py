@@ -51,9 +51,11 @@ async def schedule_trucks_endpoint(db: Session = Depends(get_db)):
 @router.post("/trucks/", response_model=TruckResponse)
 def create_truck(truck: TruckCreate, db: Session = Depends(get_db)):
     db_driver=db.query(Employee).filter(Employee.id==truck.driver_id).first()
-    db_truck = Truck(truck_number=truck.truck_number,truck_priority=truck.truck_priority,arrival_time=truck.arrival_time,driver_id=truck.driver_id)
+    db_supervisor=db_driver=db.query(Employee).filter(Employee.id==truck.supervisor_id).first()
+    db_truck = Truck(truck_number=truck.truck_number,truck_priority=truck.truck_priority,arrival_time=truck.arrival_time,driver_id=truck.driver_id,supervisor_id=truck.supervisor_id)
     db.add(db_truck)
     db.commit()
     db.refresh(db_truck)
     db_truck.driver=db_driver
+    db_truck.supervisor=db_supervisor
     return db_truck

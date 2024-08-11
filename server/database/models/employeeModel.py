@@ -47,7 +47,8 @@ class Employee(Base):
     used_set = relationship("UsedEmployeeSet", back_populates="employee", uselist=False)
     dock  = relationship("Dock", back_populates="employees")
     user = relationship("User", back_populates="employee")
-    driver=relationship("Truck", back_populates="driver", uselist=False, cascade="all, delete-orphan")
+    trucks_driven = relationship("Truck", foreign_keys="[Truck.driver_id]", back_populates="driver")
+    trucks_supervised = relationship("Truck", foreign_keys="[Truck.supervisor_id]", back_populates="supervisor")
 
 
 

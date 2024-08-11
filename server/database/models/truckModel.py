@@ -41,8 +41,11 @@ class Truck(Base):
     truck_priority = Column(Integer, nullable=False)
     arrival_time = Column(DateTime, nullable=False)
     goods = relationship("Goods", back_populates="truck")
-    driver_id=Column(Integer,ForeignKey("employees.id"),unique=True)
-    driver = relationship("Employee", back_populates="driver")
+    driver_id = Column(Integer, ForeignKey("employees.id"), unique=True)
+    driver = relationship("Employee", foreign_keys=[driver_id], back_populates="trucks_driven")
+    
+    supervisor_id = Column(Integer, ForeignKey("employees.id"), unique=True)
+    supervisor = relationship("Employee", foreign_keys=[supervisor_id], back_populates="trucks_supervised")
     
     
 

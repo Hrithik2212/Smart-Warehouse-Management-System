@@ -66,8 +66,8 @@ export const AuthProvider = () =>{
                     case 'supervisor':
                         navigate('/supervisor');
                         break;
-                    case 'staff':
-                        navigate('/manager');
+                    case 'crew':
+                        navigate('/crew');
                         break;
                     case 'driver':
                         navigate('/driver');
@@ -90,7 +90,7 @@ export const AuthProvider = () =>{
     }
     useEffect(()=>{
 
-        if(location.pathname ==="/" || location.pathname ==="/login" ||true){
+        if(location.pathname ==="/" || location.pathname ==="/login" ){
             
         }
         else{
@@ -103,8 +103,8 @@ export const AuthProvider = () =>{
             case 'supervisor':
                 navigate('/supervisor');
                 break;
-            case 'staff':
-                navigate('/manager');
+            case 'crew':
+                navigate('/crew');
                 break;
             case 'driver':
                 navigate('/driver');
