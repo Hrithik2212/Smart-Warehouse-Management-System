@@ -11,6 +11,7 @@ class UserCreate(BaseModel):
     role:str
 
 
+
 class User(BaseModel):
     id: int
     name: str
@@ -70,7 +71,6 @@ class Employee(BaseModel):
         }
 
 class EmployeeCreate(BaseModel):
-    id: int
     name: str
     email :str
     employment_type: EmploymentTypeEnum

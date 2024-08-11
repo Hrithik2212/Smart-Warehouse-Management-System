@@ -14,8 +14,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 router = APIRouter()
 
 
-@router.post("/users/", response_model=User)
-def create_user(user: UserCreate, db: Session = Depends(get_db)):
+@router.post("/users/", response_model=Employee)
+def create_user(user: EmployeeCreate, db: Session = Depends(get_db)):
     return user_controller.create_user(db=db, user=user)
 
 
@@ -46,3 +46,11 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
         )
     return user_controller.login(db_user)
 
+
+@router.get("/getassignedtrucks")
+@authenticate_request
+async def get_assigned_trucks(request: Request):
+    id=request.state.user.get("id")
+    
+
+    return {"hi":"hi"}

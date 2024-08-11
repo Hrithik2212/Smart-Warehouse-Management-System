@@ -28,7 +28,7 @@ class GenderEnum(enum.Enum):
 
 class Employee(Base):
     __tablename__ = 'employees'
-    id = Column(Integer, primary_key=True ,unique=True)
+    id = Column(Integer,ForeignKey("users.id"), primary_key=True ,unique=True)
     name = Column(String, nullable=False)
     email = Column(String ,  nullable=False)
     mobile = Column(String , nullable=False,)
@@ -41,6 +41,7 @@ class Employee(Base):
     resting_until = Column(DateTime, nullable=True)
     used_set = relationship("UsedEmployeeSet", back_populates="employee", uselist=False)
     trucks = relationship("Truck", secondary=truck_employee_association, back_populates="employees" )
+    user = relationship("User", back_populates="employee")
 
 class UsedEmployeeSet(Base):
     __tablename__ = "used_employees_set"
