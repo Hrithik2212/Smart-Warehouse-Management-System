@@ -3,8 +3,11 @@ from sqlalchemy.orm import relationship
 
 try :
     from server.database.models.truckModel import truck_employee_association
+
 except :
     from models.truckModel import truck_employee_association 
+
+
 
 try :
     from server.database.database import Base
@@ -20,6 +23,7 @@ class EmploymentTypeEnum(enum.Enum):
     supervisor = "supervisor"
     security = "security"
     admin = "admin"
+    driver="driver"
 
 class GenderEnum(enum.Enum):
     male = "male"
@@ -39,9 +43,13 @@ class Employee(Base):
     attendance_present = Column(Boolean, default=True, nullable=False)
     resting_bool = Column(Boolean, default=False, nullable=False)
     resting_until = Column(DateTime, nullable=True)
+    dock_assigned=Column(Integer, ForeignKey('docks.docks_id'))
     used_set = relationship("UsedEmployeeSet", back_populates="employee", uselist=False)
-    trucks = relationship("Truck", secondary=truck_employee_association, back_populates="employees" )
+    dock  = relationship("Dock", back_populates="employees")
     user = relationship("User", back_populates="employee")
+    driver=relationship("Truck", back_populates="driver", uselist=False, cascade="all, delete-orphan")
+
+
 
 class UsedEmployeeSet(Base):
     __tablename__ = "used_employees_set"

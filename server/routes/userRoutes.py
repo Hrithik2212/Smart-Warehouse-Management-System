@@ -3,30 +3,32 @@ from fastapi import APIRouter, Depends, HTTPException,status,Request
 from sqlalchemy.orm import Session
 from server.controllers.auth import verify_password,verify_access_token,authenticate_request
 from server.database.database import get_db
-from server.database.schemas import User, UserCreate , EmployeeCreate , Employee,Token
+from server.database.schemas import User, UserCreate , EmployeeCreate , Employee,Token,TruckCreate
 from server.controllers import user_controller , employee_controlller
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.security import OAuth2PasswordBearer
-
+from typing import List
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 router = APIRouter()
 
 
-@router.post("/users/", response_model=Employee)
+@router.post("/users/", response_model=User)
 def create_user(user: EmployeeCreate, db: Session = Depends(get_db)):
     return user_controller.create_user(db=db, emp=user)
 
-
-
-
 @router.get("/user/", response_model=User)
-@authenticate_request
 async def get_current_user(request: Request, db: Session = Depends(get_db)):
     user_email = request.state.user.get("sub")
     user = user_controller.get_user(db, email=user_email)
     return user
+
+
+@router.get("/user/all", response_model=List[User])
+async def get_current_user(db: Session = Depends(get_db)):
+
+    return user_controller.get_users(db)
 
 
 @router.post("/token", response_model=Token)
@@ -54,3 +56,11 @@ async def get_assigned_trucks(request: Request):
     
 
     return {"hi":"hi"}
+
+
+
+
+@router.post('/employees/truncate_employee/')
+async def truncate_employee(db:Session= Depends(get_db)):
+    user_controller.delete_existing_employees(db) 
+    return {'Success' : 'True'}

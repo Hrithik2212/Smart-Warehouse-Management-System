@@ -21,9 +21,7 @@ def create_employee(db:Session ,emp :EmployeeCreate ):
     db.refresh(db_employee)
     return db_employee
 
-def delete_existing_employees(db:Session):
-    db.query(Employee).delete()
-    db.commit()
+
 
 def get_employee(db:Session , id:int):
     return db.query(Employee).filter(Employee.id==id).first()

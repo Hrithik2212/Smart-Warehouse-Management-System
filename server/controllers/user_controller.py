@@ -9,70 +9,32 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import func
 from fastapi import HTTPException
 
-# def create_user(db: Session, emp: EmployeeCreate):
-#     db_user = User(name=emp.name, email=emp.email,password=get_password_hash("string"),role=emp.employment_type)
-#     db.add(db_user)
-#     user = db.query(User).filter(User.email == emp.email).first()
-#     db_employee = Employee(
-#                     id = user.id ,
-#                     name = emp.name ,
-#                     mobile = emp.mobile ,
-#                     email = emp.email ,
-#                     employment_type=emp.employment_type ,
-#                     heavy_machinery= emp.heavy_machinery ,
-#                     experience= emp.experience ,
-#                     gender = emp.gender ,
-#                     attendance_present= emp.attendance_present ,
-#                     resting_bool = emp.resting_bool ,
-#                     resting_until = emp.resting_until
-#     )
-#     db.add(db_employee)
-#     db.commit()
-#     db.refresh(db_user)
-#     return db_user
-
 def create_user(db: Session, emp: EmployeeCreate):
-    try:
-        # Get the maximum user ID
-        max_id = db.query(func.max(User.id)).scalar() or 0
-        new_id = max_id + 1
 
-        # Create new user
-        db_user = User(
-            id=new_id,
-            name=emp.name,
-            email=emp.email,
-            password=get_password_hash('string'),
-            role=emp.employment_type
-        )
-        
-        db.add(db_user)
-        db.flush()  # This will try to write to the database without committing
-        
-        # Create new employee
-        db_employee = Employee(
-            id=new_id,
-            name=emp.name,
-            mobile=emp.mobile,
-            email=emp.email,
-            employment_type=emp.employment_type,
-            heavy_machinery=emp.heavy_machinery,
-            experience=emp.experience,
-            gender=emp.gender,
-            attendance_present=emp.attendance_present,
-            resting_bool=emp.resting_bool,
-            resting_until=emp.resting_until
-        )
-        
-        db.add(db_employee)
-        db.commit()
-        db.refresh(db_employee)
-        
-        return db_employee
+    db_user = User(name=emp.name, email=emp.email,password=get_password_hash("string"),role=emp.employment_type) 
+    db.add(db_user)
+    db.commit()
 
-    except SQLAlchemyError as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail="Database error occurred")
+    db_employee = Employee(
+                    id=db_user.id,
+                    name = emp.name ,
+                    mobile = emp.mobile ,
+                    email = emp.email ,
+                    employment_type=emp.employment_type ,
+                    heavy_machinery= emp.heavy_machinery ,
+                    experience= emp.experience ,
+                    gender = emp.gender ,
+                    attendance_present= emp.attendance_present ,
+                    resting_bool = emp.resting_bool ,
+                    resting_until = emp.resting_until
+    )
+    
+    db.add(db_employee)
+    db.commit()
+    
+    
+    
+    return db_user
 
 
 def get_user(db: Session, email: str):
@@ -93,3 +55,11 @@ def login(db_user):
     )
     return {"access_token": access_token, "token_type": "bearer"} 
 
+
+def get_users(db: Session):
+    return db.query(User).all()
+
+def delete_existing_employees(db:Session):
+    db.query(User).delete()
+    db.query(Employee).delete()
+    db.commit()

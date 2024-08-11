@@ -19,7 +19,7 @@ else:
 for employee in employee_data:
     # employee['resting_bool'] = True
     # employee['resting_until'] = datetime.now().isoformat()
-    response = requests.post(f"{base_url}/employee/", json=employee)
+    response = requests.post(f"{base_url}/users/", json=employee)
     if response.status_code == 200:
         print(f"Employee {employee['name']} created successfully.")
     else:

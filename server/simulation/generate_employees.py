@@ -23,7 +23,8 @@ employment_types = {
     "supervisor": 5,
     "security": 2,
     "admin": 1,
-    "crew": 31
+    "crew": 31,
+    "driver":10
 }
 
 for emp_type, count in employment_types.items():

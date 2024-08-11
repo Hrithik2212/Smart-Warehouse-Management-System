@@ -21,16 +21,30 @@ class Goods(Base):
 
     truck = relationship("Truck", back_populates="goods")
 
+
+class Dock(Base):
+    __tablename__ = "docks"
+    docks_id = Column(String, primary_key=True)
+    employees = relationship("Employee", back_populates="dock", cascade="all, delete-orphan")
+    truck=relationship("Truck", back_populates="dock", cascade="all, delete-orphan")
+
+
+
+
+
 class Truck(Base):
     __tablename__ = "trucks"
     truck_id = Column(Integer, primary_key=True, index=True)
-    truck_name = Column(String, index=True)
-    truck_mobile = Column(String, unique=True, index=True)
-    dock_assigned = Column(Integer, nullable=True)
+    truck_number=Column(String,unique=True)
+    dock_assigned=Column(Integer, ForeignKey('docks.docks_id'), nullable=True)
+    dock = relationship("Dock", back_populates="truck")
     truck_priority = Column(Integer, nullable=False)
     arrival_time = Column(DateTime, nullable=False)
     goods = relationship("Goods", back_populates="truck")
-    employees = relationship("Employee", secondary=truck_employee_association, back_populates="trucks")
+    driver_id=Column(Integer,ForeignKey("employees.id"),unique=True)
+    driver = relationship("Employee", back_populates="driver")
+    
+    
 
 
 class TruckQueue(Base):

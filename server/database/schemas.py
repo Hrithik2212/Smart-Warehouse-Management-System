@@ -12,14 +12,7 @@ class UserCreate(BaseModel):
 
 
 
-class User(BaseModel):
-    id: int
-    name: str
-    email: str
-    role:str
 
-    class Config:
-        from_attributes = True
 
 class LoginUser(BaseModel):
     email:str
@@ -45,6 +38,7 @@ class EmploymentTypeEnum(str, Enum):
     supervisor = "supervisor"
     security = "security"
     admin = "admin"
+    driver="driver"
 
 class GenderEnum(str, Enum):
     male = "male"
@@ -70,6 +64,16 @@ class Employee(BaseModel):
             datetime: lambda v: v.isoformat() if v else None
         }
 
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    role:str
+    employee:Employee
+
+    class Config:
+        from_attributes = True
+        
 class EmployeeCreate(BaseModel):
     name: str
     email :str
@@ -85,3 +89,23 @@ class EmployeeCreate(BaseModel):
     class Config:
         use_enum_values = True
     
+
+
+class TruckCreate(BaseModel):
+    truck_priority: int
+    arrival_time: datetime
+    truck_number:str
+    dock_assigned: Optional[int] = None
+    driver_id: int
+
+    class Config:
+        from_attributes = True
+
+class TruckResponse(BaseModel):
+    truck_priority: int
+    arrival_time: datetime
+    dock_assigned: Optional[int] = None
+    driver: Employee
+
+    class Config:
+        orm_mode = True

@@ -2,9 +2,10 @@ from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
 from sqlalchemy.orm import Session
 import pandas as pd
 from server.database.database import get_db
+from server.database.models.employeeModel import Employee
 from server.database.models.truckModel import Truck , Goods
 from server.controllers import truck_scehdule_controller
-
+from server.database.schemas import TruckCreate,TruckResponse
 router = APIRouter()
 
 @router.post("/trucks/upload-goods/{truck_id}")
@@ -45,3 +46,14 @@ async def upload_goods(truck_id: int, file: UploadFile = File(...), db: Session 
 async def schedule_trucks_endpoint(db: Session = Depends(get_db)):
     scheduled_trucks = truck_scehdule_controller.schedule_trucks(db)
     return {"scheduled_trucks": [truck.truck_id for truck in scheduled_trucks]}
+
+
+@router.post("/trucks/", response_model=TruckResponse)
+def create_truck(truck: TruckCreate, db: Session = Depends(get_db)):
+    db_driver=db.query(Employee).filter(Employee.id==truck.driver_id).first()
+    db_truck = Truck(truck_number=truck.truck_number,truck_priority=truck.truck_priority,arrival_time=truck.arrival_time,driver_id=truck.driver_id)
+    db.add(db_truck)
+    db.commit()
+    db.refresh(db_truck)
+    db_truck.driver=db_driver
+    return db_truck

@@ -20,7 +20,7 @@ def read_user(employee_id: int, db: Session = Depends(get_db)):
     return db_emp 
 
 
-@router.post('/employees/truncate_employee/')
+
 async def truncate_employee(db:Session= Depends(get_db)):
     employee_controlller.delete_existing_employees(db) 
     return {'Success' : 'True'}
