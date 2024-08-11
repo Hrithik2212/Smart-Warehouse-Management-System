@@ -1,10 +1,17 @@
-from sqlalchemy import Column, Integer, String , Enum , Boolean , DateTime ,ForeignKey
+from sqlalchemy import Column, Integer, String , Enum , Boolean , DateTime ,ForeignKey, Table
 from sqlalchemy.orm import relationship
+
+try :
+    from server.database.models.truckModel import truck_employee_association
+except :
+    from models.truckModel import truck_employee_association 
+
 try :
     from server.database.database import Base
 except :
-    from database import Base # for creatinng db 
+    from database import Base 
 import enum 
+
 
 
 class EmploymentTypeEnum(enum.Enum):
@@ -33,6 +40,7 @@ class Employee(Base):
     resting_bool = Column(Boolean, default=False, nullable=False)
     resting_until = Column(DateTime, nullable=True)
     used_set = relationship("UsedEmployeeSet", back_populates="employee", uselist=False)
+    trucks = relationship("Truck", secondary=truck_employee_association, back_populates="employees")
 
 class UsedEmployeeSet(Base):
     __tablename__ = "used_employees_set"
