@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { LayOut, LoginRequiredLayout } from './components/outLet/OutLet'
 import ManagerDashboard from './pages/Dashboards/manager/ManagerDashboard'
 import CrewDashboard from './pages/Dashboards/crew/CrewDashboard'
 import DriverDashboard from './pages/Dashboards/driver/DriverDashboard'
@@ -7,12 +6,14 @@ import SupervisorDashboard from './pages/Dashboards/supervisor/SupervisorDashboa
 import Landing from './pages/Landing/Landing'
 import './App.css'
 import Login from './pages/Login/Login'
+import { AuthProvider } from './context/AuthContext'
+
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <LayOut />,
+      element: <AuthProvider />,
       children: [
         {
           path: '/',
@@ -22,12 +23,6 @@ function App() {
           path: '/login',
           element: <Login />
         },
-      ]
-    },
-    {
-      path: '/',
-      element: <LoginRequiredLayout />,
-      children: [
         {
           path: '/manager',
           element: <ManagerDashboard />,
@@ -68,7 +63,9 @@ function App() {
   ])
 
   return (
+   
     <RouterProvider router={router} />
+    
   )
 }
 

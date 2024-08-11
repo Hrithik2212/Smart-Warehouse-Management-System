@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Outlet,Navigate } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdAddTask } from "react-icons/md";
 import './index.css'
-import { AuthProvider } from '@/context/AuthContext';
+import AuthContext, { AuthProvider } from '@/context/AuthContext';
 
 const NavBar=()=>{
     return(
@@ -39,19 +39,19 @@ const LayOut = () => {
 }
 
 const LoginRequiredLayout = ()=>{
-  const {user}=true
-  if(!user && false){
+  const {user,logoutUser}=true
+  if(!user){
     return <Navigate to="/login"/>
   }
   return (
-    <AuthProvider>
+   
       <div>
           <NavBar/>
           <div>
               <Outlet/>
           </div>
       </div>
-    </AuthProvider>
+    
   )
 }
 
