@@ -16,7 +16,7 @@ router = APIRouter()
 
 @router.post("/users/", response_model=Employee)
 def create_user(user: EmployeeCreate, db: Session = Depends(get_db)):
-    return user_controller.create_user(db=db, user=user)
+    return user_controller.create_user(db=db, emp=user)
 
 
 

@@ -1,17 +1,78 @@
 # app/controllers/user_controller.py
 from sqlalchemy.orm import Session
-from server.database.models.userModel import User
-from server.database.schemas import UserCreate 
+from server.database.models.userModel import User 
+from server.database.schemas import EmployeeCreate 
+from server.database.models.employeeModel import Employee
 from server.controllers.auth import get_password_hash,create_access_token,verify_password
 from datetime import datetime, timedelta
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import func
+from fastapi import HTTPException
 
+# def create_user(db: Session, emp: EmployeeCreate):
+#     db_user = User(name=emp.name, email=emp.email,password=get_password_hash("string"),role=emp.employment_type)
+#     db.add(db_user)
+#     user = db.query(User).filter(User.email == emp.email).first()
+#     db_employee = Employee(
+#                     id = user.id ,
+#                     name = emp.name ,
+#                     mobile = emp.mobile ,
+#                     email = emp.email ,
+#                     employment_type=emp.employment_type ,
+#                     heavy_machinery= emp.heavy_machinery ,
+#                     experience= emp.experience ,
+#                     gender = emp.gender ,
+#                     attendance_present= emp.attendance_present ,
+#                     resting_bool = emp.resting_bool ,
+#                     resting_until = emp.resting_until
+#     )
+#     db.add(db_employee)
+#     db.commit()
+#     db.refresh(db_user)
+#     return db_user
 
-def create_user(db: Session, user: UserCreate):
-    db_user = User(name=user.name, email=user.email,password=get_password_hash(user.password),role=user.role)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+def create_user(db: Session, emp: EmployeeCreate):
+    try:
+        # Get the maximum user ID
+        max_id = db.query(func.max(User.id)).scalar() or 0
+        new_id = max_id + 1
+
+        # Create new user
+        db_user = User(
+            id=new_id,
+            name=emp.name,
+            email=emp.email,
+            password=get_password_hash('string'),
+            role=emp.employment_type
+        )
+        
+        db.add(db_user)
+        db.flush()  # This will try to write to the database without committing
+        
+        # Create new employee
+        db_employee = Employee(
+            id=new_id,
+            name=emp.name,
+            mobile=emp.mobile,
+            email=emp.email,
+            employment_type=emp.employment_type,
+            heavy_machinery=emp.heavy_machinery,
+            experience=emp.experience,
+            gender=emp.gender,
+            attendance_present=emp.attendance_present,
+            resting_bool=emp.resting_bool,
+            resting_until=emp.resting_until
+        )
+        
+        db.add(db_employee)
+        db.commit()
+        db.refresh(db_employee)
+        
+        return db_employee
+
+    except SQLAlchemyError as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Database error occurred")
 
 
 def get_user(db: Session, email: str):
