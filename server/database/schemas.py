@@ -7,14 +7,34 @@ from datetime import datetime
 class UserCreate(BaseModel):
     name: str
     email: str
+    password:str
+    role:str
+
 
 class User(BaseModel):
     id: int
     name: str
     email: str
+    role:str
 
     class Config:
         from_attributes = True
+
+class LoginUser(BaseModel):
+    email:str
+    password:str
+
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: str
+    id: int
+    name: str
+    role: str
 
 
 

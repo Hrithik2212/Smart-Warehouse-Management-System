@@ -3,6 +3,7 @@ import { Outlet,Navigate } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdAddTask } from "react-icons/md";
 import './index.css'
+import { AuthProvider } from '@/context/AuthContext';
 
 const NavBar=()=>{
     return(
@@ -26,14 +27,14 @@ const LayOut = () => {
 
 
   return (
-    <div>
-        <NavBar/>
-         
-            <div>
-                    <Outlet /> 
-            </div>
-
-    </div>
+    <AuthProvider>
+      <div>
+          <NavBar/>
+          <div>
+              <Outlet/>
+          </div>
+      </div>
+    </AuthProvider>
   )
 }
 
@@ -43,14 +44,14 @@ const LoginRequiredLayout = ()=>{
     return <Navigate to="/login"/>
   }
   return (
-    <div>
-      <NavBar/>
+    <AuthProvider>
       <div>
-          <Outlet/>
+          <NavBar/>
+          <div>
+              <Outlet/>
+          </div>
       </div>
-
-     
-    </div>
+    </AuthProvider>
   )
 }
 
