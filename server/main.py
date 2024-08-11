@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from server.routes import userRoutes
 from server.routes import employeeRoutes
+from server.routes import truckRoutes
 import pytz
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -18,7 +19,7 @@ app.add_middleware(
 kolkata_tz = pytz.timezone('Asia/Kolkata')
 app.include_router(userRoutes.router)
 app.include_router(employeeRoutes.router)
-
+app.include_router(truckRoutes.router)
 
 
 
