@@ -1,13 +1,13 @@
 import React, {  useState } from 'react'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
-import { VscHistory } from "react-icons/vsc";
-import Progress from '../../../components/progress/Progress';
 import useFetch from '../../../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { SlPeople } from "react-icons/sl";
 import EmployeeForm from '@/components/forms/EmployeeForm';
-
+import Trucks from './trucks/Trucks'
+import Employee from './Employee/Employee';
+import { IoIosPersonAdd } from "react-icons/io";
 
 const CrewDashboard = () =>  {
   const {data,loading,error}=useFetch("/")
@@ -35,9 +35,20 @@ const CrewDashboard = () =>  {
         "head":"Admin",
       "children":[
         {
+            "title":"Trucks",
+            "label":<CiDeliveryTruck size={30}/>,
+            "path":""
+        },
+
+        {
           "title":"Add Employee",
+          "label":<IoIosPersonAdd size={25}/>,
+          "path":"addemployee"
+        },
+        {
+          "title":"Employees",
           "label":<SlPeople size={25}/>,
-          "path":""
+          "path":"employees"
         },
         
       ],
@@ -51,7 +62,11 @@ const CrewDashboard = () =>  {
          
         
           <div className='w-full h-fit '>
-                <EmployeeForm/>
+                
+                {activePage==='' && (<Trucks />)}
+                {activePage==='addemployee' && (<EmployeeForm/>)}
+                {activePage==='employees' && (<Employee/>)}
+                
           
            
           </div>

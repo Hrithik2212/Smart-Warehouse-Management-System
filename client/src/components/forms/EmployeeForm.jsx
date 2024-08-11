@@ -111,27 +111,7 @@ const EmployeeForm = () => {
                         <ErrorMessage name="gender" component="div" className="text-red-500 text-sm mt-1" />
                     </div>
 
-                    <div className="form-group">
-                        <div className="flex items-center">
-                            <Field type="checkbox" id="attendance_present" name="attendance_present" className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                            <label htmlFor="attendance_present" className="ml-2 block text-sm font-medium text-gray-700">Attendance Present</label>
-                        </div>
-                        <ErrorMessage name="attendance_present" component="div" className="text-red-500 text-sm mt-1" />
-                    </div>
-
-                    <div className="form-group">
-                        <div className="flex items-center">
-                            <Field type="checkbox" id="resting_bool" name="resting_bool" className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                            <label htmlFor="resting_bool" className="ml-2 block text-sm font-medium text-gray-700">Currently Resting</label>
-                        </div>
-                        <ErrorMessage name="resting_bool" component="div" className="text-red-500 text-sm mt-1" />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="resting_until" className="block text-sm font-medium text-gray-700">Resting Until</label>
-                        <Field type="date" id="resting_until" name="resting_until" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                        <ErrorMessage name="resting_until" component="div" className="text-red-500 text-sm mt-1" />
-                    </div>
+                  
 
                     <button type="submit" className="w-full py-2 px-4 bg-[#5522d0] text-white font-semibold rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
                 </Form>
