@@ -20,12 +20,27 @@ def read_user(employee_id: int, db: Session = Depends(get_db)):
     return db_emp 
 
 
-@router.post('/truncate_employee/')
+@router.post('/employees/truncate_employee/')
 async def truncate_employee(db:Session= Depends(get_db)):
     employee_controlller.delete_existing_employees(db) 
     return {'Success' : 'True'}
 
-@router.get('/test_functionallity/')
-async def rest(db:Session=Depends(get_db)) :
-    # return employee_schedule_controller.count_working_employees(db)
-    return {'val' : employee_schedule_controller.update_resting_employees(session=db)}
+@router.post("/employees/assign_crew/")
+def assign_crew(dock_id: int, team_size: int = 5, db: Session = Depends(get_db)):
+    try:
+        crew = employee_schedule_controller.assign_employee_team_on_request(db, dock_id, team_size)
+        return {"crew": [{"id": emp.id,
+                          "name": emp.name, 
+                          "role": emp.employment_type.value ,
+                          "heavy_machinery" : emp.heavy_machinery , 
+                          "experience" : emp.experience } 
+                    for emp in crew]}
+    except HTTPException as e: 
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@router.post('/employees/truncate_used_employee_set')
+def clear_used_employee_set(db:Session=Depends(get_db)):
+    employee_schedule_controller.truncate_used_employee_set(db)
+    return {'Success':True}

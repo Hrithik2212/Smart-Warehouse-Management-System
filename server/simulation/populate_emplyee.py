@@ -17,8 +17,8 @@ else:
 
 # Create the employees using the create_employee() endpoint
 for employee in employee_data:
-    employee['resting_bool'] = True
-    employee['resting_until'] = datetime.now().isoformat()
+    # employee['resting_bool'] = True
+    # employee['resting_until'] = datetime.now().isoformat()
     response = requests.post(f"{base_url}/employee/", json=employee)
     if response.status_code == 200:
         print(f"Employee {employee['name']} created successfully.")
