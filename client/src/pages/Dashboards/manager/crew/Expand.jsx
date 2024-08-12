@@ -9,18 +9,24 @@ const Expand = ({truck}) => {
                           <thead className='w-full '>
                                 <tr>
                                   <th >Name</th>
-                                  <th>Role</th>
+                                  <th>Experience</th>
                                   <th >Contact</th>
                                 </tr>
                           </thead>
                           <tbody>
-                            {truck?.Crew_data.map((item,key)=>(
+                            {truck?.employees?.map((item,key)=>(
                               <tr className='w-full whitespace-nowrap ' key={key}>
-                                  <td>{item.name}</td>
-                                  <td className=''>{item?.email ? (item.email):('--')}</td>
-                                  <td className=''>{item?.number ? (item.number):('--')}</td>
+                                  <td>{item.name} <span className='max-md:hidden'>({item.experience}(Y))</span></td>
+                                  <td className=''>{item.employment_type}{<span className='max-md:hidden'>{item.heavy_machinery &&(" (Heavy Machinery)")}</span>}</td>
+                                  <td className=''>{item?.mobile ? (item.mobile):('--')}</td>
                               </tr>
                             ))}
+                            <tr className='w-full whitespace-nowrap '>
+                                  <td>{truck.truck.driver.name} <span className='max-md:hidden'>({truck.truck.driver.experience}(Y))</span></td>
+                                  <td className=''>{truck.truck.driver.employment_type}</td>
+                                  <td className=''>{truck.truck.driver ? (truck.truck.driver.mobile):('--')}</td>
+                              </tr>
+
                             </tbody>
                       </table>
                                                             

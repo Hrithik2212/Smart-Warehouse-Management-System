@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TableHead from '../../../../components/table/TableHead'
 import TableOutLet from '../../../../components/table/TableOutLet'
 import Card from '../../../../components/card/Card'
 import Expand from './Expand'
 import useFetch from '../../../../hooks/useFetch'
 import RadioButtonGroup from '../../../../components/checkBox/CheckBox'
+import AuthContext from '@/context/AuthContext'
 
 const Crew = () => {
 
-    const {data,loading,error}=useFetch("/data.json")
-    const [filteredData,setFilteredData]=useState([])
-    const [user,setUser]=useState(null)
-    const [showDetails,setShowDetails]=useState(0)
-    const [selectedOption, setSelectedOption] = useState('');
+  const {authToken}=useContext(AuthContext)
+  const {data,loading,error}=useFetch("getalldocks/",authToken.access_token)
+  console.log(data)
+  
+
+    const [showDetails,setShowDetails]=useState(null)
+
   
     const changeDetails = (index)=>{
-        console.log("clicked")
           if(showDetails===index){
               setShowDetails(null);
           }
@@ -23,17 +25,8 @@ const Crew = () => {
               setShowDetails(index);
           }
       }
-      useEffect(()=>{
-          if (selectedOption) {
-              setFilteredData(data?.data.filter((item) => item.state === selectedOption));
-            } else {
-              setFilteredData(data?.data);
-            }
-      },[selectedOption,data])
+
   
-    useEffect(()=>{
-        setUser(data?.info)
-    },[data])
     return (
       <div className='w-full'>
 
@@ -48,20 +41,20 @@ const Crew = () => {
                               <h2 className='w-full max-lg:hidden'>Arrival Time</h2>
                               <h2 className='w-full max-lg:hidden'>Priority</h2>
                   </TableHead>
-                          {filteredData?.map((truck,index)=>(
+                          {data?.map((truck,index)=>(
                               <div key={index} className=''>
-                                <div onClick={()=>changeDetails(truck.id)}>
+                                <div onClick={()=>changeDetails(index)}>
                                     <Card index={index}>
-                                            <h6 className='w-full'>{truck?.dock ? (truck.dock):"--"}</h6>
-                                            <h6 className='flex text-center   w-full justify-center items-center' >{truck.truck_number}</h6>
-                                            <h6 className='m text-center  w-full '>{truck?.supervisor ? (truck.supervisor):("--")}</h6>
-                                            <h6 className=' w-full text-center max-lg:hidden'>{new Date(truck.arrival).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</h6>
-                                            <h6 className=' w-full max-lg:hidden'>{truck.priority_level}</h6>
+                                            <h6 className='w-full'>{truck?.docks_id ? (truck.docks_id):"--"}</h6>
+                                            <h6 className='flex text-center   w-full justify-center items-center' >{truck?.truck ? (truck.truck.truck_number):("--")}</h6>
+                                            <h6 className='m text-center  w-full '>{truck?.truck?.supervisor ? (truck.truck.supervisor.name):("--")}</h6>
+                                            <h6 className=' w-full text-center max-lg:hidden'>{truck?.truck?.arrival_time ? (new Date(truck?.truck.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
+                                            <h6 className=' w-full max-lg:hidden'>{truck?.truck?.truck_priority}</h6>
                                     </Card>
                               </div>
                                   
-                                  {showDetails === truck.id && (
-                                          truck.Crew ? (<Expand truck={truck}/>):(<h2>No Crew Assigned</h2>)
+                                  {showDetails === index && (
+                                          truck?.employees ? (<Expand truck={truck}/>):(<h2>No Crew Assigned</h2>)
                                           
                                   )}
                               </div>

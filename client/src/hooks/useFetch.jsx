@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-const useFetch = (url) => {
+
+const BASE_URL="http://127.0.0.1:8000/"
+const useFetch = (url,authToken) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -8,7 +10,13 @@ const useFetch = (url) => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(url);
+                const response = await fetch(BASE_URL+url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json' 
+                    }
+                });
                 
 
                 if (!response.ok) {

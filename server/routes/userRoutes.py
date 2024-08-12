@@ -18,7 +18,7 @@ router = APIRouter()
 def create_user(user: EmployeeCreate, db: Session = Depends(get_db)):
     return user_controller.create_user(db=db, emp=user)
 
-@router.get("/user/", response_model=User)
+@router.get("/getuser/", response_model=User)
 async def get_current_user(request: Request, db: Session = Depends(get_db)):
     user_email = request.state.user.get("sub")
     user = user_controller.get_user(db, email=user_email)
@@ -27,7 +27,6 @@ async def get_current_user(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/user/all", response_model=List[User])
 async def get_current_user(db: Session = Depends(get_db)):
-
     return user_controller.get_users(db)
 
 
@@ -49,12 +48,10 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
     return user_controller.login(db_user)
 
 
-@router.get("/getassignedtrucks")
+@router.get("/getassignedtruckscrew")
 @authenticate_request
-async def get_assigned_trucks(request: Request):
+async def get_assigned_trucks_crew(request: Request):
     id=request.state.user.get("id")
-    
-
     return {"hi":"hi"}
 
 
@@ -64,3 +61,6 @@ async def get_assigned_trucks(request: Request):
 async def truncate_employee(db:Session= Depends(get_db)):
     user_controller.delete_existing_employees(db) 
     return {'Success' : 'True'}
+
+
+

@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String  , DateTime , ForeignKey,Table
+import enum
+from sqlalchemy import Column, Integer, String  , DateTime , ForeignKey,Table,Enum
 from sqlalchemy.orm import relationship
 try : 
     from server.database.database import Base
@@ -25,11 +26,14 @@ class Goods(Base):
 class Dock(Base):
     __tablename__ = "docks"
     docks_id = Column(String, primary_key=True)
-    employees = relationship("Employee", back_populates="dock", cascade="all, delete-orphan")
-    truck=relationship("Truck", back_populates="dock", cascade="all, delete-orphan")
+    employees = relationship("Employee", back_populates="dock", cascade="save-update, merge")
+    truck=relationship("Truck", back_populates="dock",uselist=False, cascade="all, delete-orphan")
 
 
-
+class State(enum.Enum):
+    Pending = "Pending"
+    Processing = "Processing"
+    Completed = "Completed"
 
 
 class Truck(Base):
@@ -39,10 +43,11 @@ class Truck(Base):
     dock_assigned=Column(Integer, ForeignKey('docks.docks_id'), nullable=True)
     dock = relationship("Dock", back_populates="truck")
     truck_priority = Column(Integer, nullable=False)
-    arrival_time = Column(DateTime, nullable=False)
+    arrival_time = Column(DateTime, nullable=True)
     goods = relationship("Goods", back_populates="truck")
+    state=Column(Enum(State),default="Pending")
     driver_id = Column(Integer, ForeignKey("employees.id"), unique=True)
-    driver = relationship("Employee", foreign_keys=[driver_id], back_populates="trucks_driven")
+    driver = relationship("Employee", foreign_keys=[driver_id],uselist=False, back_populates="trucks_driven")
     
     supervisor_id = Column(Integer, ForeignKey("employees.id"), unique=True)
     supervisor = relationship("Employee", foreign_keys=[supervisor_id], back_populates="trucks_supervised")

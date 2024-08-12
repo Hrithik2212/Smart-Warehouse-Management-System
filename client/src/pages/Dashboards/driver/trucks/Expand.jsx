@@ -3,9 +3,7 @@ import ExpandRow from '../../../../components/table/ExpandRow'
 import DropDown from '../../../../components/dropDown/DropDown'
 import { Link } from 'react-router-dom'
 const Expand = ({truck}) => {
-  const [request,setRequest]=useState(false)
-  const [choice,setChoice]=useState("Dropdown")
-  const data=["Damage","Assign"]
+
   return (
     <ExpandRow>
             <div className='flex justify-between  md:justify-center items-center mx-auto gap-5 md:gap-20 w-[90%] md:w-[60%]  '>
@@ -22,12 +20,12 @@ const Expand = ({truck}) => {
                             </div>
                             <div className='w-full whitespace-nowrap max-md:text-right'>
                                 <h6 className=''>{truck.truck_number}</h6>
-                                <h6>{truck.driver}</h6>
-                                <h6 className=''>{truck?.manager ? (truck.manager):('--')}</h6>
-                                <h6 className=''>{truck?.email ? (truck.email):('--')}</h6>
-                                <h6 className=''>{truck?.number ? (truck.number):('--')}</h6>
-                                <h6 className=''>{truck?.arrival ? (new Date(truck.arrival).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
-                                <h6 className=''>{truck.priority_level}</h6>
+                                <h6>{truck.driver.name}({truck.driver.experience} Years)</h6>
+                                <h6 className=''>{truck?.supervisor ? (truck.supervisor.name):('--')}</h6>
+                                <h6 className=''>{truck?.supervisor ? (truck.supervisor.email):('--')}</h6>
+                                <h6 className=''>{truck?.supervisor ? (truck.supervisor.mobile):('--')}</h6>
+                                <h6 className=''>{truck?.arrival_time ? (new Date(truck.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
+                                <h6 className=''>{truck.truck_priority}</h6>
                                 <h6 className=''>{truck.state}</h6>
                             </div>
                       

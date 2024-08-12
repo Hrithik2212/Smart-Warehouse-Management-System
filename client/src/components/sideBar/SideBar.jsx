@@ -6,7 +6,7 @@ import AuthContext from '@/context/AuthContext'
 const SideBar = ({sideBarData,activePage}) => {
   
   const {user}=useContext(AuthContext)
-  const {data,loading,error}=useFetch("/supervisor.json")
+
 
 
 

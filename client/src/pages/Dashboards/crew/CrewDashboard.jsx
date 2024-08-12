@@ -12,7 +12,7 @@ import { SlPeople } from "react-icons/sl";
 
 
 const CrewDashboard = () =>  {
-  const {data,loading,error}=useFetch("/")
+
 
   const {page}=useParams()
   const activePage = page || '';

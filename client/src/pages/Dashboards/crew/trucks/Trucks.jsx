@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TableHead from '../../../../components/table/TableHead'
 import TableOutLet from '../../../../components/table/TableOutLet'
 import Card from '../../../../components/card/Card'
 import Expand from './Expand'
 import useFetch from '../../../../hooks/useFetch'
 import RadioButtonGroup from '../../../../components/checkBox/CheckBox'
+import AuthContext from '@/context/AuthContext'
 const Trucks = () => {
 
-  const {data,loading,error}=useFetch("/data.json")
+  const {authToken}=useContext(AuthContext)
+  const {data,loading,error}=useFetch("gettruck/",authToken.access_token)
+  console.log(data)
   const [filteredData,setFilteredData]=useState([])
-  const [user,setUser]=useState(null)
+
   const [showDetails,setShowDetails]=useState(0)
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -29,9 +32,7 @@ const Trucks = () => {
           }
     },[selectedOption,data])
 
-  useEffect(()=>{
-      setUser(data?.info)
-  },[data])
+
   return (
     <div className='w-full max-md:mt-10'>
         <RadioButtonGroup selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>

@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import func , update ,and_, or_, not_
 from server.database.models.employeeModel import Employee, EmploymentTypeEnum, UsedEmployeeSet, GenderEnum
+from server.database.models.truckModel import Dock
 from datetime import datetime
 import random
 from fastapi import HTTPException
@@ -68,6 +69,7 @@ def check_and_clear_used_set(db: Session):
     return {'cycle_crew':cycle_crew , 'cycle_supervisor':cycle_supervisor}
 
 def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 5):
+    dock=db.query(Dock).filter(Dock.docks_id==dock_id).first()
     # Step 1: Update resting employees
     update_resting_employees(db)
 
@@ -86,22 +88,24 @@ def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 
 
     # Step 4: Select supervisor
     supervisor = next((emp for emp in available_employees if emp.employment_type == EmploymentTypeEnum.supervisor), None)
+   
     if not supervisor:
         raise HTTPException(status_code=400, detail="No available supervisor")
 
     # Step 5: Select crew members
     crew_members = [emp for emp in available_employees if emp.employment_type == EmploymentTypeEnum.crew]
     
-    experienced_crew = next((emp for emp in crew_members if emp.experience >= 5), None)
+    experienced_crew = next((emp for emp in crew_members if emp.experience >= 5 and emp.id!=supervisor.id), None)
     if not experienced_crew:
         raise HTTPException(status_code=400, detail="No available crew with 5+ years experience")
 
-    heavy_machinery_crew = next((emp for emp in crew_members if emp.heavy_machinery), None)
+
+    heavy_machinery_crew = next((emp for emp in crew_members if emp.heavy_machinery and emp.id!=experienced_crew.id and emp.id!=supervisor.id), None)
     if not heavy_machinery_crew:
         raise HTTPException(status_code=400, detail="No available crew with heavy machinery experience")
 
     # Remove selected crew from the pool
-    crew_members = [emp for emp in crew_members if emp not in [experienced_crew, heavy_machinery_crew]]
+    crew_members = [emp for emp in crew_members if emp not in [experienced_crew, heavy_machinery_crew,supervisor]]
 
     # Select remaining crew members to fill the team based on gender ratio
     remaining_crew_count = team_size - 3  # Supervisor + Experienced + Heavy Machinery
@@ -133,7 +137,12 @@ def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 
     for emp in selected_crew:
         db.add(UsedEmployeeSet(id=emp.id))
         db.query(Employee).filter(Employee.id == emp.id).update({"resting_bool": True})
+
+    dock.employees=selected_crew
+    db.add(dock)
     db.commit()
+
+
 
     return selected_crew
 
