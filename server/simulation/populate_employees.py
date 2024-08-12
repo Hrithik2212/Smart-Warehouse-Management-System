@@ -7,8 +7,11 @@ def generate_phone():
     return f"+1{random.randint(100, 999):03d}{random.randint(100, 999):03d}{random.randint(1000, 9999):04d}"
 
 # Helper function to generate random email
-def generate_email(name):
-    return f"{name.lower().replace(' ', '.')}@example.com"
+def generate_email(name, existing_emails):
+    email = f"{name.lower().replace(' ', '.')}@example.com"
+    while email in existing_emails:
+        email = f"{name.lower().replace(' ', '.')}+{random.randint(1, 1000)}@example.com"
+    return email
 
 # Generate employee data
 employees = []
@@ -24,8 +27,10 @@ employment_types = {
     "security": 2,
     "admin": 1,
     "crew": 31,
-    "driver":10
+    "driver": 10,
 }
+
+existing_emails = set()
 
 for emp_type, count in employment_types.items():
     for _ in range(count):
@@ -51,10 +56,13 @@ for emp_type, count in employment_types.items():
         else:
             experience = random.randint(5, 15)
         
+        email = generate_email(name, existing_emails)
+        existing_emails.add(email)
+        
         employee = {
             "id": employee_id,
             "name": name,
-            "email": generate_email(name),
+            "email": email,
             "mobile": generate_phone(),
             "employment_type": emp_type,
             "heavy_machinery": heavy_machinery,
@@ -93,7 +101,7 @@ while crew_experience_over_5 < 10:
             break
 
 # Write to JSON file
-with open('employees.json', 'w') as f:
+with open('employees1.json', 'w') as f:
     json.dump(employees, f, indent=2)
 
 print(f"Total employees: {len(employees)}")

@@ -102,3 +102,8 @@ async def get_all_dock(request: Request,db: Session = Depends(get_db)):
 @router.get("/truncatedock/{docks_id}")
 def truncate_dock(docks_id:int,db: Session = Depends(get_db)):
     return truck_controller.truncate_dock(db,docks_id)
+
+
+@router.get("/trucks/truncate_trucks")
+def truncate_truck_invoices(db: Session = Depends(get_db)):
+    return truck_controller.truncate_truck_invoices(db)

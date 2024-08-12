@@ -41,3 +41,7 @@ def truncate_dock(db: Session,docks_id:int):
         return True
     else:
         return False
+    
+def truncate_truck_invoices(db:Session) :
+    db.query(Truck).delete()
+    db.commit()

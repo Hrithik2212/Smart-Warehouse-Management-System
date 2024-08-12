@@ -5,7 +5,7 @@ from datetime import datetime
 base_url = "http://127.0.0.1:8000/"
 
 # Load the employee data from the JSON file
-with open("employees.json", "r") as f:
+with open("employees1.json", "r") as f:
     employee_data = json.load(f)
 
 # Truncate the employee table
