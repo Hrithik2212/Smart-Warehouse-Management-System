@@ -21,9 +21,21 @@ const Expand = ({truck}) => {
                             <div className='w-full whitespace-nowrap max-md:text-right'>
                                 <h6 className=''>{truck.truck_number}</h6>
                                 <h6>{truck.driver.name}({truck.driver.experience} Years)</h6>
-                                <h6 className=''>{truck?.supervisor ? (truck.supervisor.name):('--')}</h6>
-                                <h6 className=''>{truck?.supervisor ? (truck.supervisor.email):('--')}</h6>
-                                <h6 className=''>{truck?.supervisor ? (truck.supervisor.mobile):('--')}</h6>
+                                <h6 className=''>{
+                                              truck.dock ? (truck.dock.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.name
+                                                ):("--")}</h6>
+                                <h6 className=''>{
+                                              truck.dock ? (truck.dock.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.email
+                                                ):("--")}</h6>
+                                <h6 className=''>{
+                                              truck.dock ? (truck.dock.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.mobile
+                                                ):("--")}</h6>
                                 <h6 className=''>{truck?.arrival_time ? (new Date(truck.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
                                 <h6 className=''>{truck.truck_priority}</h6>
                                 <h6 className=''>{truck.state}</h6>

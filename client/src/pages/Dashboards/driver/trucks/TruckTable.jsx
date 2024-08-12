@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom'
 const TruckTable = () => {
     const {authToken}=useContext(AuthContext)
     const {data,loading,error}=useFetch("gettruck/",authToken.access_token)
-    const [selectedOption, setSelectedOption] = useState('');
+
+    console.log(data)
     const [showDetails,setShowDetails]=useState(0)
 
 
@@ -43,9 +44,13 @@ const TruckTable = () => {
                             <div key={index} className=''>
                               <div onClick={()=>changeDetails(truck.truck_number)}>
                                   <Card   index={index}>
-                                          <h6 className='w-full '>{truck?.dock_assigned ? (truck.dock_assigned):"--"}</h6>
+                                          <h6 className='w-full '>{truck?.dock ? (truck.dock.docks_id):"--"}</h6>
                                           <h6 className='flex text-center max-lg:hidden  w-full justify-center items-center' >{truck.truck_number}</h6>
-                                          <h6 className='max-lg:hidden text-center  w-full'>{truck?.supervisor ? (truck.supervisor.name):("--")}</h6>
+                                          <h6 className='max-lg:hidden text-center  w-full'>{
+                                              truck.dock ? (truck.dock.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.name
+                                                ):("--")}</h6>
                                           <h6 className=' w-full text-center '>{truck?.arrival_time ? (new Date(truck.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
                                           <h6 className=' w-full'>{truck.truck_priority}</h6>
                                   </Card>

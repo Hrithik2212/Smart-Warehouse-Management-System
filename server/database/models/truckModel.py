@@ -48,9 +48,7 @@ class Truck(Base):
     state=Column(Enum(State),default="Pending")
     driver_id = Column(Integer, ForeignKey("employees.id"), unique=True)
     driver = relationship("Employee", foreign_keys=[driver_id],uselist=False, back_populates="trucks_driven")
-    
-    supervisor_id = Column(Integer, ForeignKey("employees.id"), unique=True)
-    supervisor = relationship("Employee", foreign_keys=[supervisor_id], back_populates="trucks_supervised")
+
     
     
 

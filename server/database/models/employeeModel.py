@@ -48,7 +48,6 @@ class Employee(Base):
     dock  = relationship("Dock", back_populates="employees")
     user = relationship("User", back_populates="employee")
     trucks_driven = relationship("Truck", foreign_keys="[Truck.driver_id]", back_populates="driver")
-    trucks_supervised = relationship("Truck", foreign_keys="[Truck.supervisor_id]", back_populates="supervisor")
 
 
 

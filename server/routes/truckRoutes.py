@@ -72,7 +72,7 @@ async def get_truck(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/getalltruck/", response_model=List[TruckResponse])
 @authenticate_request
-async def get_truck(request: Request, db: Session = Depends(get_db)):
+async def get_all_truck(request: Request, db: Session = Depends(get_db)):
     role=request.state.user.get("role")
     if role=="manager":
        return db.query(Truck).all()

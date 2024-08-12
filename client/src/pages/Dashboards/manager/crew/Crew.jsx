@@ -11,7 +11,6 @@ const Crew = () => {
 
   const {authToken}=useContext(AuthContext)
   const {data,loading,error}=useFetch("getalldocks/",authToken.access_token)
-  console.log(data)
   
 
     const [showDetails,setShowDetails]=useState(null)
@@ -47,7 +46,11 @@ const Crew = () => {
                                     <Card index={index}>
                                             <h6 className='w-full'>{truck?.docks_id ? (truck.docks_id):"--"}</h6>
                                             <h6 className='flex text-center   w-full justify-center items-center' >{truck?.truck ? (truck.truck.truck_number):("--")}</h6>
-                                            <h6 className='m text-center  w-full '>{truck?.truck?.supervisor ? (truck.truck.supervisor.name):("--")}</h6>
+                                            <h6 className='m text-center  w-full '>{
+                                              truck?.employees ? (truck.employees
+                                              ?.filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.name
+                                                ):("--")}</h6>
                                             <h6 className=' w-full text-center max-lg:hidden'>{truck?.truck?.arrival_time ? (new Date(truck?.truck.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
                                             <h6 className=' w-full max-lg:hidden'>{truck?.truck?.truck_priority}</h6>
                                     </Card>
