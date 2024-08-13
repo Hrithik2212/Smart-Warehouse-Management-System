@@ -48,11 +48,7 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
     return user_controller.login(db_user)
 
 
-@router.get("/getassignedtruckscrew")
-@authenticate_request
-async def get_assigned_trucks_crew(request: Request):
-    id=request.state.user.get("id")
-    return {"hi":"hi"}
+
 
 
 

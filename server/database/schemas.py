@@ -107,6 +107,7 @@ class TruckCreate(BaseModel):
     truck_priority: int
     truck_number:str
     driver_id: int
+    arrival_time:datetime
     dock_assigned: Optional[int] = None
 
     class Config:
@@ -131,9 +132,21 @@ class TruckResponse(BaseModel):
         orm_mode = True
 
 
+class TruckResponseForDock(BaseModel):
+    truck_priority: int
+    arrival_time: Optional[datetime] = None
+    truck_number:str
+    driver: Employee
+    state:str
+
+    class Config:
+        orm_mode = True
+
 class DockResponse(BaseModel):
     docks_id:int
     employees:Optional[List[Employee]]=[]
     truck:Optional[TruckResponse]=None
     class Config:
         orm_mode = True
+
+

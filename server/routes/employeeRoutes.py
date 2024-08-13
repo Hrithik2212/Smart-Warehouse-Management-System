@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from server.database.database import get_db
 from server.database.schemas import  EmployeeCreate , Employee
 from server.controllers import employee_controlller , employee_schedule_controller 
+from server.database.models.truckModel import Dock
 
 router = APIRouter()
 
@@ -25,8 +26,11 @@ async def truncate_employee(db:Session= Depends(get_db)):
     employee_controlller.delete_existing_employees(db) 
     return {'Success' : 'True'}
 
-@router.post("/employees/assign_crew/")
+@router.get("/employees/assign_crew/{dock_id}")
 def assign_crew(dock_id: int, team_size: int = 5, db: Session = Depends(get_db)):
+    dock=db.query(Dock).filter(Dock.docks_id == dock_id).first()
+    if len(dock.employees)>0:
+        raise HTTPException(status_code=422, detail=str("Already assigned"))
     try:
         crew = employee_schedule_controller.assign_employee_team_on_request(db, dock_id, team_size)
         return {"crew": [{"id": emp.id,

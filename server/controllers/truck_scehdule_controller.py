@@ -13,9 +13,10 @@ def schedule_trucks(session: Session):
 
     # Get all trucks scheduled for today with arrival time greater than now
     trucks = session.query(Truck).filter(
-        func.date(Truck.arrival_time) == today,
+        #func.date(Truck.arrival_time) == today,
         Truck.arrival_time > now
     ).all()
+
 
     if not trucks:
         return {"message": "No trucks to schedule at this time"}
@@ -52,8 +53,8 @@ def schedule_trucks(session: Session):
         session.add(truck_queue_entry)
         
         # Optionally update the dock_assigned in the Truck table if required
-        truck.dock_assigned = dock_assigned
+        #truck.dock_assigned = dock_assigned
 
     session.commit()
 
-    return {"scheduled_trucks": [truck.truck_id for truck in sorted_trucks]}
+    return {"scheduled_trucks": [truck.truck_id for idx,truck in enumerate(sorted_trucks)]}

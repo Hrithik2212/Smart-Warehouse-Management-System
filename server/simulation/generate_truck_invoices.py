@@ -2,6 +2,14 @@ import requests
 import json
 from datetime import datetime
 import random 
+from datetime import datetime, timedelta
+import random
+
+# Generate tomorrow's date
+tomorrow = datetime.now() + timedelta(days=1)
+
+# Assign a random hour and minute
+
 
 # Base URL of the API
 base_url = "http://127.0.0.1:8000/"
@@ -29,14 +37,19 @@ if not drivers:
 
 # Step 3: Create trucks and store invoices
 invoices = []
+print(len(drivers))
 for driver in drivers:
+    random_hour = random.randint(0, 23)
+    random_minute = random.randint(0, 59)
+    arrival_time = tomorrow.replace(hour=random_hour, minute=random_minute, second=0, microsecond=0)
     truck_data = {
         "truck_number": f"TRUCK-{driver['id']}",
         "truck_priority": random.randint(1, 5),  # Assuming priority is between 1 and 5
         "driver_id": driver['id'],
+        "arrival_time":arrival_time.isoformat(),
         "dock_assigned": None  # Assuming no dock is assigned initially
     }
-    invoices.append(response.json())  # Append the created truck invoice
+    invoices.append(truck_data)  # Append the created truck invoice
 
 # Step 4: Save the invoices to a JSON file
 with open('invoices.json', 'w') as f:

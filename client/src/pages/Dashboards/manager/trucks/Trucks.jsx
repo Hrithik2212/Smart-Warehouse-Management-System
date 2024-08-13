@@ -9,6 +9,8 @@ import AuthContext from '@/context/AuthContext'
 const Trucks = () => {
   const {authToken}=useContext(AuthContext)
   const {data,loading,error}=useFetch("getalltruck/",authToken.access_token)
+  console.log(data)
+
   const [filteredData,setFilteredData]=useState([])
   const [supervisor,setSupervisor]=useState(null)
 
@@ -50,6 +52,7 @@ const Trucks = () => {
                             
                             <h2 className='w-full'>Priority</h2>
                 </TableHead>
+                        {(!data || data.length === 0) && (<div className='p-5'>No Trucks Assigned</div>)}
                         {filteredData?.map((truck,index)=>(
                             <div key={index} className=''>
                               <div onClick={()=>changeDetails(truck.truck_number)}>
@@ -57,7 +60,7 @@ const Trucks = () => {
                                           <h6 className='w-full'>{truck?.dock ? (truck.dock.docks_id):"--"}</h6>
                                           <h6 className='flex text-center max-lg:hidden  w-full justify-center items-center' >{truck?.truck_number}</h6>
                                           <h6 className='max-lg:hidden text-center  w-full'>{
-                                              truck.dock ? (truck.dock.employees
+                                              truck?.dock?.employees.length>0 ? (truck.dock.employees
                                               .filter(
                                                   (item)=> item.employment_type==="supervisor")[0]?.name
                                                 ):("--")}</h6>

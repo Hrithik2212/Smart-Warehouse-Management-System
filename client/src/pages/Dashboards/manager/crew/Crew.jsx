@@ -11,7 +11,7 @@ const Crew = () => {
 
   const {authToken}=useContext(AuthContext)
   const {data,loading,error}=useFetch("getalldocks/",authToken.access_token)
-  
+  console.log(data)
 
     const [showDetails,setShowDetails]=useState(null)
 
@@ -40,6 +40,7 @@ const Crew = () => {
                               <h2 className='w-full max-lg:hidden'>Arrival Time</h2>
                               <h2 className='w-full max-lg:hidden'>Priority</h2>
                   </TableHead>
+                          {(!data || data.length === 0) && (<div className='p-5'>No Crew Assigned</div>)}
                           {data?.map((truck,index)=>(
                               <div key={index} className=''>
                                 <div onClick={()=>changeDetails(index)}>

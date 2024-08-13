@@ -1,11 +1,18 @@
 import Card from '@/components/card/Card'
 import DropDown from '@/components/dropDown/DropDown'
 import TableHead from '@/components/table/TableHead'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import BASE_URL from '../../../../../utils/baseApi';
+import AuthContext from '@/context/AuthContext';
 
 const InfoTable = () => {
+  const {authToken}=useContext(AuthContext)
+  const navigate=useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dock = searchParams.get('dock');
+  
     const products = [
       { productid: "1234" },
       { productid: "4567" },
@@ -33,10 +40,29 @@ const InfoTable = () => {
 }, []);
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       const isValid = formData.every(item => item.state !== "--");
       if (isValid) {
-        console.log('Form Data Submitted:');
+        try {
+          const response = await fetch(BASE_URL+`assignnewtrucks/${dock}`, {
+              method: 'GET',
+              headers: {
+                  'Authorization': `Bearer ${authToken}`,
+                  'Content-Type': 'application/json' 
+              }
+          });
+          
+
+          if (!response.ok) {
+              throw new Error(`Error: ${response.status} ${response.statusText}`);
+          }
+          alert("Submitted")
+          navigate("/supervisor")
+
+      } catch (err) {
+          alert("Something went to wrong..")
+          console.log(err)
+      } 
       } else {
         alert("All states must be filled out");
     }

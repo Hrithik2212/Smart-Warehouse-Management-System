@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import BASE_URL from '../utils/baseApi';
 
-const BASE_URL="http://127.0.0.1:8000/"
 const useFetch = (url,authToken) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);

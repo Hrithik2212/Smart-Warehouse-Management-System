@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from datetime import datetime
 from server.database.models.truckModel import Truck, TruckQueue, Dock, State
-from server.controllers.employee_scheduler_controller import assign_employee_team_on_request
+from server.controllers.employee_schedule_controller import assign_employee_team_on_request
 
 class DockAllocator:
     def __init__(self, session: Session):
@@ -59,14 +59,16 @@ class DockAllocator:
 
         self.session.commit()
 
+
     def release_dock(self, dock_id: int):
         dock = self.session.query(Dock).filter(Dock.docks_id == dock_id).first()
-        if dock and dock.truck:
+        if dock:
             truck = dock.truck
-            truck.state = State.Completed
-            truck.dock = None
+            if truck:
+                truck.state = State.Completed
+                truck.dock = None
             dock.truck = None
-            dock.employees = []  # Remove assigned employees
+            dock.employees=[]
             self.available_docks += 1
             self.session.commit()
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
+import { addDays, startOfDay, endOfDay, setHours, setMinutes } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InfoTable = () => {
@@ -11,9 +12,21 @@ const InfoTable = () => {
       console.log(time)
       navigate("/driver")
     };
-    const today = new Date();
-    const [time, setTime] = useState(today);
-    const fixedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const [time, setTime] = useState(null);
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const minTime = setHours(setMinutes(startOfDay(tomorrow), 0), 8); 
+    const maxTime = setHours(setMinutes(endOfDay(tomorrow), 0), 22); 
+
+
+    const filterTime = (time) => {
+      return time >= minTime && time <= maxTime;
+    };
+
+    useEffect(()=>{
+      setTime(tomorrow)
+    },[])
     
   return (
     <div className='w-full border-collapse text-center '>
@@ -29,16 +42,19 @@ const InfoTable = () => {
                                 </svg>
                             </div>
                             <DatePicker
-                                    selected={time}
-                                    onChange={(date) => setTime(date)}
-                                    showTimeSelect
-                                    timeFormat="HH:mm"
-                                    dateFormat="HH:mm"
-                                    showTimeSelectOnly
-                                    timeIntervals={30} 
-                                    timeCaption="Time"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2 text-center block w-[150px]  "
-                                  />
+                                selected={time}
+                                onChange={(date) => setTime(date)}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                dateFormat="MMMM d, h:mm aa"
+                                showTimeSelectOnly
+                                timeIntervals={30}
+                                timeCaption="Time"
+                                minDate={tomorrow}
+                                maxDate={tomorrow}
+                                filterTime={filterTime}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2 text-center block w-[150px]  "
+                              />
                       </div>
 
 

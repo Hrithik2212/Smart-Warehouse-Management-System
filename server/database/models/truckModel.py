@@ -26,8 +26,8 @@ class Goods(Base):
 class Dock(Base):
     __tablename__ = "docks"
     docks_id = Column(String, primary_key=True)
-    employees = relationship("Employee", back_populates="dock", cascade="save-update, merge")
-    truck=relationship("Truck", back_populates="dock",uselist=False, cascade="all, delete-orphan")
+    employees = relationship("Employee", back_populates="dock")
+    truck=relationship("Truck", back_populates="dock",uselist=False)
 
 
 class State(enum.Enum):
