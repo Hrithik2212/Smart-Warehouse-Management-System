@@ -45,7 +45,7 @@ for emp_type, count in employment_types.items():
         last_name = random.choice(["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"])
         name = f"{first_name} {last_name}"
         
-        heavy_machinery = random.random() < 0.35
+        heavy_machinery = random.random() < 0.35 and emp_type != "supervisor" and emp_type != "manager"
         if heavy_machinery:
             heavy_machinery_count += 1
         
@@ -87,7 +87,7 @@ while male_count / len(employees) > 0.6:
 # Adjust heavy machinery count if needed
 while heavy_machinery_count / len(employees) < 0.35:
     for emp in employees:
-        if not emp["heavy_machinery"]:
+        if not emp["heavy_machinery"] and emp["employment_type"] != "supervisor" and emp["employment_type"] != "manager":
             emp["heavy_machinery"] = True
             heavy_machinery_count += 1
             break

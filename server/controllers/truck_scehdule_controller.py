@@ -5,8 +5,14 @@ from server.database.models.truckModel import Truck , TruckQueue
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from datetime import datetime
+from server.controllers import dock_allocator
+from fastapi import  Depends
+from server.database.database import get_db
 
-def schedule_trucks(session: Session):
+def get_dock_allocator(db: Session = Depends(get_db)):
+    return dock_allocator.DockAllocator(db)
+
+def schedule_trucks(session: Session,dock_allocator: dock_allocator.DockAllocator = Depends(get_dock_allocator)):
     # Get the current date and time
     now = datetime.now()
     today = now.date()
@@ -41,20 +47,34 @@ def schedule_trucks(session: Session):
     sorted_trucks = sorted(trucks, key=lambda t: t.score, reverse=True)
 
     # Assign docks based on sorted scores and save to truck_queue table
+    
     for idx, truck in enumerate(sorted_trucks):
-        dock_assigned = idx + 1  # Example: Assign dock based on position
+        try:
+            existing_entry = session.query(TruckQueue).filter_by(truck_id=truck.truck_id).first()
         
-        # Save the truck and assigned dock to the truck_queue table
-        truck_queue_entry = TruckQueue(
-            truck_id=truck.truck_id,
-            dock_assigned=dock_assigned,
-            scheduled_time=now
-        )
-        session.add(truck_queue_entry)
+            if existing_entry is None:
+                dock_assigned = idx + 1  # Example: Assign dock based on position
+                
+                # Save the truck and assigned dock to the truck_queue table
+                truck_queue_entry = TruckQueue(
+                    truck_id=truck.truck_id,
+                    dock_assigned=dock_assigned,
+                    scheduled_time=now
+                )
+                session.add(truck_queue_entry)
+        except:
+            pass
         
         # Optionally update the dock_assigned in the Truck table if required
         #truck.dock_assigned = dock_assigned
 
-    session.commit()
+    try:
+         session.commit()
+    except:
+         pass
+    try:
+        dock_allocator.allocate_trucks()
+    except Exception as e:
+        print(e)
 
     return {"scheduled_trucks": [truck.truck_id for idx,truck in enumerate(sorted_trucks)]}

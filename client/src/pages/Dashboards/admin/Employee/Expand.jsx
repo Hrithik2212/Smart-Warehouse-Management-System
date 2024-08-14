@@ -15,13 +15,13 @@ const Expand = ({employee}) => {
                         
                         </div>
                         <div className='w-full whitespace-nowrap max-md:text-right'>
-                            <h6 className=''>{employee.Name}</h6>
-                            <h6>{employee?.Email}</h6>
-                            <h6 className=''>{employee?.Mobile}</h6>
-                            <h6 className=''>{employee?.EmploymentType}</h6>
-                            <h6 className=''>{employee.HeavyMachinery ? ("Yes"):("No")}</h6>
-                            <h6 className=''>{employee?.Experience}</h6>
-                            <h6 className=''>{employee?.Gender}</h6>
+                            <h6 className=''>{employee.name}</h6>
+                            <h6>{employee?.employee?.email}</h6>
+                            <h6 className=''>{employee?.employee.mobile}</h6>
+                            <h6 className=''>{employee?.role}</h6>
+                            <h6 className=''>{employee?.employee.heavy_machinery ? ("Yes"):("No")}</h6>
+                            <h6 className=''>{employee?.employee.experience}</h6>
+                            <h6 className=''>{employee?.employee.gender}</h6>
                            
                         </div>
             </div>

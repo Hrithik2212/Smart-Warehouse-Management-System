@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import TableHead from '../../../../components/table/TableHead'
 import useFetch from '../../../../hooks/useFetch'
-import RadioButtonGroup from '../../../../components/checkBox/CheckBox'
 import Card from '../../../../components/card/Card'
 import Expand from './Expand'
 import AuthContext from '@/context/AuthContext'
@@ -11,8 +10,7 @@ const TruckTable = () => {
     const {authToken}=useContext(AuthContext)
     const {data,loading,error}=useFetch("gettruck/",authToken.access_token)
 
-    console.log(data)
-    const [showDetails,setShowDetails]=useState(0)
+    const [showDetails,setShowDetails]=useState(null)
 
 
 
@@ -42,7 +40,7 @@ const TruckTable = () => {
                         {(!data || data.length === 0) && (<div className='p-5'>No Trucks Assigned</div>)}
                         {data?.map((truck,index)=>(
                             <div key={index} className=''>
-                              <div onClick={()=>changeDetails(truck.truck_number)}>
+                              <div onClick={()=>changeDetails(index)}>
                                   <Card   index={index}>
                                           <h6 className='w-full '>{truck?.dock ? (truck.dock.docks_id):"--"}</h6>
                                           <h6 className='flex text-center max-lg:hidden  w-full justify-center items-center' >{truck.truck_number}</h6>
@@ -55,7 +53,7 @@ const TruckTable = () => {
                                           <h6 className=' w-full'>{truck.truck_priority}</h6>
                                   </Card>
                               </div>
-                                {showDetails === truck.truck_number && (
+                                {showDetails === index && (
                                   
                                         <Expand truck={truck}/>
                                         

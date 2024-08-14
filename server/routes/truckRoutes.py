@@ -1,15 +1,20 @@
+from datetime import datetime, timedelta
 from fastapi import APIRouter, Depends, File, Request, UploadFile, HTTPException
 from sqlalchemy.orm import Session
 import pandas as pd
 from server.database.database import get_db
 from server.database.models.employeeModel import Employee
-from server.database.models.truckModel import Truck , Goods,Dock
+from server.database.models.truckModel import Truck , Goods,Dock,TruckQueue
 from server.controllers import truck_scehdule_controller
 from server.controllers.auth import verify_password,verify_access_token,authenticate_request
 from server.controllers import truck_controller,dock_allocator
 from server.database.schemas import TruckCreate,TruckResponse,DockResponse
 from typing import List
 router = APIRouter()
+
+
+def get_dock_allocator(db: Session = Depends(get_db)):
+    return dock_allocator.DockAllocator(db)
 
 @router.post("/trucks/upload-goods/{truck_id}")
 async def upload_goods(truck_id: int, file: UploadFile = File(...), db: Session = Depends(get_db)):
@@ -46,8 +51,8 @@ async def upload_goods(truck_id: int, file: UploadFile = File(...), db: Session 
 
 
 @router.post("/trucks/schedule-trucks/")
-async def schedule_trucks_endpoint(db: Session = Depends(get_db)):
-    return truck_scehdule_controller.schedule_trucks(db)
+async def schedule_trucks_endpoint(db: Session = Depends(get_db),dock_allocator: dock_allocator.DockAllocator = Depends(get_dock_allocator)):
+    return truck_scehdule_controller.schedule_trucks(db,dock_allocator)
 
 
 @router.post("/createtrucks/", response_model=TruckResponse)
@@ -73,7 +78,7 @@ async def get_truck(request: Request, db: Session = Depends(get_db)):
 @authenticate_request
 async def get_all_truck(request: Request, db: Session = Depends(get_db)):
     role=request.state.user.get("role")
-    if role=="manager":
+    if role=="manager" or role=="admin":
        return db.query(Truck).all()
     else:
         raise HTTPException(status_code=403, detail="Unautherized")
@@ -98,6 +103,8 @@ def create_dock(docks_id:int,db: Session = Depends(get_db)):
 
 @router.get("/getdock/{docks_id}", response_model=DockResponse)
 def get_dock(docks_id:int,db: Session = Depends(get_db)):
+    print(datetime.now() + timedelta(seconds=20))
+
     return truck_controller.get_dock(db,docks_id)
 
 @router.get("/getalldocks/", response_model=List[DockResponse])
@@ -109,8 +116,7 @@ async def get_all_dock(request: Request,db: Session = Depends(get_db)):
     else:
         raise HTTPException(status_code=403, detail="Unautherized")
 
-def get_dock_allocator(db: Session = Depends(get_db)):
-    return dock_allocator.DockAllocator(db)
+
 
 
 
@@ -126,6 +132,7 @@ def truck_allocator(dock_allocator):
 @router.get("/assignnewtrucks/{docks_id}")
 def truncate_dock(docks_id:int,dock_allocator: dock_allocator.DockAllocator = Depends(get_dock_allocator)):
     try:
+      
         dock_allocator.release_dock(docks_id)
         truck_allocator(dock_allocator)
         return True

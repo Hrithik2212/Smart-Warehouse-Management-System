@@ -56,7 +56,7 @@ class Truck(Base):
 class TruckQueue(Base):
     __tablename__ = "truck_queue"
     queue_id = Column(Integer, primary_key=True, index=True)
-    truck_id = Column(Integer, ForeignKey('trucks.truck_id'), nullable=False)
+    truck_id = Column(Integer, ForeignKey('trucks.truck_id'), nullable=False, unique=True)
     dock_assigned = Column(Integer, nullable=False)
     scheduled_time = Column(DateTime, nullable=False)
     

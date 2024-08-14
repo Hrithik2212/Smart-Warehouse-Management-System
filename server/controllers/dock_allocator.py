@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from datetime import datetime
+from datetime import datetime, timedelta
 from server.database.models.truckModel import Truck, TruckQueue, Dock, State
 from server.controllers.employee_schedule_controller import assign_employee_team_on_request
 
@@ -16,6 +16,9 @@ class DockAllocator:
 
     def allocate_trucks(self):
         self.update_available_docks()
+        
+        for i in self.session.query(TruckQueue).all():
+            print(i.truck_id)
         
         while self.available_docks > 0:
             # Get the next truck in the queue
@@ -63,6 +66,12 @@ class DockAllocator:
     def release_dock(self, dock_id: int):
         dock = self.session.query(Dock).filter(Dock.docks_id == dock_id).first()
         if dock:
+            for employee in dock.employees:
+                rest_time = datetime.now() + timedelta(seconds=20)
+                rest_time = rest_time.replace(microsecond=0)  # Remove microseconds
+                employee.resting_until = rest_time
+                self.session.add(employee)
+                
             truck = dock.truck
             if truck:
                 truck.state = State.Completed
@@ -70,6 +79,7 @@ class DockAllocator:
             dock.truck = None
             dock.employees=[]
             self.available_docks += 1
+            self.session.add(dock)
             self.session.commit()
 
     def get_dock_status(self):

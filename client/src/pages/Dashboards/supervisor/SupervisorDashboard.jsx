@@ -1,10 +1,8 @@
-import React, {  useState } from 'react'
+import React from 'react'
 import './index.css'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
 import { VscHistory } from "react-icons/vsc";
-import Progress from '../../../components/progress/Progress';
-import useFetch from '../../../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import Trucks from './trucks/Trucks';
 import History from './history/History';
@@ -58,9 +56,7 @@ const SupervisorDashboard = () => {
             
                         
             
-            <div className='max-md:order-1'>
-              <Progress/>
-            </div>
+
         </section>
     </div>
   )

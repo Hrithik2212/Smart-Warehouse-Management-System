@@ -16,20 +16,30 @@ const Expand = ({truck}) => {
                             <h2>State</h2>
                         </div>
                         <div className='w-full whitespace-nowrap max-md:text-right'>
-                            <h6 className=''>{truck.truck_number}</h6>
-                            <h6>{truck.driver}</h6>
-                            <h6 className=''>{truck?.supervisor ? (truck.supervisor):('--')}</h6>
-                            <h6 className=''>{truck?.email ? (truck.email):('--')}</h6>
-                            <h6 className=''>{truck?.number ? (truck.number):('--')}</h6>
-                            <h6 className=''>{new Date(truck.arrival).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</h6>
-                            <h6 className=''>{truck?.Crew ? (truck.Crew):('--')}</h6>
-                            <h6 className=''>{truck.priority_level}</h6>
+                            <h6 className=''>{truck?.truck_number}</h6>
+                            <h6>{truck.driver.name}</h6>
+                            <h6 className=''>{
+                                              truck?.dock?.employees.length>0 ? (truck.dock?.employees
+                                              ?.filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.name
+                                                ):("--")}</h6>
+                            <h6 className=''>{
+                                              truck?.dock?.employees.length>0 ? (truck.dock?.employees
+                                              ?.filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.email
+                                                ):("--")}</h6>
+                            <h6 className=''>{
+                                              truck?.dock?.employees.length>0 ? (truck.dock?.employees
+                                              ?.filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.mobile
+                                                ):("--")}</h6>
+                            <h6 className=''>{truck?.arrival_time ? (new Date(truck?.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
+                            <h6 className=''>{truck?.dock?.employees.length>0 ? (truck.dock?.employees?.length):('--')}</h6>
+                            <h6 className=''>{truck.truck_priority}</h6>
                             <h6 className=''>{truck.state}</h6>
                         </div>
             </div>
-            <div className='flex flex-col justify-end z-0 relative'>
-                        <button className='bg-[var(--primary-btn)] text-[var(--text-secondary-color)] max-md:mx-auto py-3 px-6 rounded-md'>Raise Request</button>
-            </div>
+
     </ExpandRow>
     
   )

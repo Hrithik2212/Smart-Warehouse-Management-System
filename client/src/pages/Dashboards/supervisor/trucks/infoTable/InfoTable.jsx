@@ -1,11 +1,11 @@
-import Card from '@/components/card/Card'
-import DropDown from '@/components/dropDown/DropDown'
-import TableHead from '@/components/table/TableHead'
+import Card from '../../../../../components/card/Card'
+import DropDown from '../../../../../components/dropDown/DropDown'
+import TableHead from '../../../../../components/table/TableHead'
 import React, { useContext, useEffect, useState } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import BASE_URL from '../../../../../utils/baseApi';
-import AuthContext from '@/context/AuthContext';
+import AuthContext from '../../../../../context/AuthContext';
 
 const InfoTable = () => {
   const {authToken}=useContext(AuthContext)

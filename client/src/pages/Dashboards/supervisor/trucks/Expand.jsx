@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ExpandRow from '../../../../components/table/ExpandRow'
-import DropDown from '../../../../components/dropDown/DropDown'
 import { Link } from 'react-router-dom'
 const Expand = ({truck}) => {
-  const [request,setRequest]=useState(false)
-  const [choice,setChoice]=useState("Dropdown")
-  const data=["Damage","Assign"]
+
   return (
     <ExpandRow>
             <div className='flex justify-between  md:justify-center items-center mx-auto gap-5 md:gap-20 w-[90%] md:w-[60%]  '>

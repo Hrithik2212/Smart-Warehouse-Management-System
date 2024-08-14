@@ -15,11 +15,13 @@ const Expand = ({truck}) => {
                           </thead>
                           <tbody>
                             {truck?.employees?.map((item,key)=>(
-                              <tr className='w-full whitespace-nowrap ' key={key}>
-                                  <td>{item.name} <span className='max-md:hidden'>({item.experience}(Y))</span></td>
-                                  <td className=''>{item.employment_type}{<span className='max-md:hidden'>{item.heavy_machinery &&(" (Heavy Machinery)")}</span>}</td>
-                                  <td className=''>{item?.mobile ? (item.mobile):('--')}</td>
-                              </tr>
+                              item.employment_type !== "manager" && (
+                                  <tr className='w-full whitespace-nowrap ' key={key}>
+                                    <td>{item.name} <span className='max-md:hidden'>({item.experience}(Y))</span></td>
+                                    <td className=''>{item.employment_type}{<span className='max-md:hidden'>{item.heavy_machinery &&(" (Heavy Machinery)")}</span>}</td>
+                                    <td className=''>{item?.mobile ? (item.mobile):('--')}</td>
+                                  </tr>
+                              )
                             ))}
                             <tr className='w-full whitespace-nowrap '>
                                   <td>{truck.truck.driver.name} <span className='max-md:hidden'>({truck.truck.driver.experience}(Y))</span></td>

@@ -3,7 +3,6 @@ import './index.css'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
 import { VscHistory } from "react-icons/vsc";
-import Progress from '../../../components/progress/Progress';
 import {  useParams } from 'react-router-dom';
 import Trucks from './trucks/Trucks';
 import History from './history/History';

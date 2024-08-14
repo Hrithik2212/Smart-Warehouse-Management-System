@@ -8,13 +8,15 @@ from fastapi import HTTPException
 
 def update_resting_employees(session:Session):
     # pass 
-    current_time = datetime.now().isoformat()
+    current_time = datetime.now().replace(microsecond=0)
     stmt = (
         update(Employee)
         .where(
-            (Employee.resting_bool == True) #&  # Employee is currently resting
-            #(Employee.resting_until != None)  & # Resting time has passed
-            #(Employee.resting_until < current_time)
+            and_(
+                Employee.resting_bool == True,  # Employee is currently resting
+                Employee.resting_until != None,  # Employee has a resting time set
+                Employee.resting_until < current_time  # Resting time has passed
+            )
         )
         .values(
             resting_bool=False,  # Set resting to False
@@ -52,7 +54,7 @@ def check_and_clear_used_set(db: Session):
     cycle_supervisor = False 
 
     # If crew members need to be cycled
-    if (0.8 * count['crew_count'] < len(used_crew_ids)):
+    if (0.5 * count['crew_count'] < len(used_crew_ids)):
         cycle_crew = True 
         db.query(UsedEmployeeSet).filter(
             UsedEmployeeSet.id.in_([id[0] for id in used_crew_ids])
@@ -60,7 +62,7 @@ def check_and_clear_used_set(db: Session):
         db.commit()
 
     # If supervisors need to be cycled
-    if (0.8 * count['supervisor_count'] < len(used_supervisor_ids)):
+    if (0.5 * count['supervisor_count'] < len(used_supervisor_ids)):
         cycle_supervisor = True 
         db.query(UsedEmployeeSet).filter(
             UsedEmployeeSet.id.in_([id[0] for id in used_supervisor_ids])
@@ -91,13 +93,14 @@ def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 
             ~Employee.used_set.has(),
         )
     ).all()
-    
+   
 
     # Step 4: Select supervisor
     supervisor = next((emp for emp in available_employees if emp.employment_type == EmploymentTypeEnum.supervisor), None)
-   
+    
     if not supervisor:
         raise HTTPException(status_code=400, detail="No available supervisor")
+    print(supervisor.id)
 
     # Step 5: Select crew members
     crew_members = [emp for emp in available_employees if emp.employment_type == EmploymentTypeEnum.crew]
@@ -105,56 +108,66 @@ def assign_employee_team_on_request(db: Session, dock_id: int, team_size: int = 
     experienced_crew = next((emp for emp in crew_members if emp.experience >= 5 and emp.id!=supervisor.id), None)
     if not experienced_crew:
         raise HTTPException(status_code=400, detail="No available crew with 5+ years experience")
+    print(experienced_crew.id)
 
 
     heavy_machinery_crew = next((emp for emp in crew_members if emp.heavy_machinery and emp.id!=experienced_crew.id and emp.id!=supervisor.id), None)
     if not heavy_machinery_crew:
         raise HTTPException(status_code=400, detail="No available crew with heavy machinery experience")
-
+    print(heavy_machinery_crew.id)
     # Remove selected crew from the pool
-    crew_members = [emp for emp in crew_members if emp not in [experienced_crew, heavy_machinery_crew,supervisor]]
+    crew_members = [emp for emp in crew_members if (
+                    emp not in [experienced_crew, heavy_machinery_crew, supervisor] 
+                    and not emp.heavy_machinery)]
+    
+    
+    
     
     # Select remaining crew members to fill the team based on gender ratio
     remaining_crew_count = team_size - 3  # Supervisor + Experienced + Heavy Machinery
     
     selected_crew = random.sample(crew_members, min(remaining_crew_count, len(crew_members)))
+
     
 
     # Combine all selected employees
     selected_crew = [supervisor, experienced_crew, heavy_machinery_crew] + selected_crew
+
+    print([(emp.id,emp.heavy_machinery)for emp in selected_crew ])
+
+    
     
     
 
     # Ensure gender diversity (70% males, 30% females)
-    num_males = int(0.7 * team_size)
-    num_females = team_size - num_males
+    # num_males = int(0.7 * team_size)
+    # num_females = team_size - num_males
 
-    males_in_crew = [emp for emp in selected_crew if emp.gender == GenderEnum.male]
-    females_in_crew = [emp for emp in selected_crew if emp.gender == GenderEnum.female]
+    # males_in_crew = [emp for emp in selected_crew if emp.gender == GenderEnum.male]
+    # females_in_crew = [emp for emp in selected_crew if emp.gender == GenderEnum.female]
 
     
 
-    # Adjust male/female count to match required ratio
-    if len(males_in_crew) < num_males:
-        try:
-            males_needed = num_males - len(males_in_crew)
-            extra_males = random.sample([emp for emp in crew_members if emp.gender == GenderEnum.male], males_needed)
-            females_in_crew = females_in_crew[:num_females]  # Trim females if necessary
-            selected_crew = males_in_crew + extra_males + females_in_crew
-        except:
-            pass
-    elif len(females_in_crew) < num_females:
-        try:
-            females_needed = num_females - len(females_in_crew)
-            extra_females = random.sample([emp for emp in crew_members if emp.gender == GenderEnum.female], females_needed)
-            males_in_crew = males_in_crew[:num_males]  # Trim males if necessary
-            selected_crew = males_in_crew + females_in_crew + extra_females
-        except:
-            pass
+    # # Adjust male/female count to match required ratio
+    # if len(males_in_crew) < num_males:
+    #     try:
+    #         males_needed = num_males - len(males_in_crew)
+    #         extra_males = random.sample([emp for emp in crew_members if emp.gender == GenderEnum.male], males_needed)
+    #         females_in_crew = females_in_crew[:num_females]  # Trim females if necessary
+    #         selected_crew = males_in_crew + extra_males + females_in_crew
+    #     except:
+    #         pass
+    # elif len(females_in_crew) < num_females:
+    #     try:
+    #         females_needed = num_females - len(females_in_crew)
+    #         extra_females = random.sample([emp for emp in crew_members if emp.gender == GenderEnum.female], females_needed)
+    #         males_in_crew = males_in_crew[:num_males]  # Trim males if necessary
+    #         selected_crew = males_in_crew + females_in_crew + extra_females
+    #     except:
+    #         pass
 
     # Add selected crew to UsedEmployeeSet
-    print(selected_crew)
- 
+    
     for emp in selected_crew:
         db.add(UsedEmployeeSet(id=emp.id))
         db.query(Employee).filter(Employee.id == emp.id).update({"resting_bool": True})

@@ -3,12 +3,11 @@ import TableHead from '../../../../components/table/TableHead'
 import TableOutLet from '../../../../components/table/TableOutLet'
 import Card from '../../../../components/card/Card'
 import Expand from './Expand'
-import useFetch from '../../../../hooks/useFetch'
+
 
 const History = () => {
-    const {data,loading,error}=useFetch("/data.json")
-    const [user,setUser]=useState(null)
-    const [showDetails,setShowDetails]=useState(0)
+    const [data,setData]=useState(null)
+    const [showDetails,setShowDetails]=useState(null)
   
     const changeDetails = (index)=>{
           if(showDetails===index){
@@ -18,9 +17,14 @@ const History = () => {
               setShowDetails(index);
           }
       }
-    useEffect(()=>{
-        setUser(data?.info)
-    },[data])
+      useEffect(()=>{
+        const fetchdata = async() =>{
+            const response=await fetch("/data.json")
+            setData(await response.json())
+        }
+        fetchdata()
+        console.log(data)
+    },[])
     return (
         <TableOutLet>
                 
@@ -34,7 +38,7 @@ const History = () => {
                         </TableHead>
                         {data?.data?.map((truck,index)=>(
                             <div key={index} className=''>
-                            <div onClick={()=>changeDetails(truck.id)}>
+                            <div onClick={()=>changeDetails(index)}>
                                 <Card   index={index}>
                                         <h6 className='w-full'>{truck?.dock ? (truck.dock):"--"}</h6>
                                         <h6 className='flex text-center max-lg:hidden  w-full justify-center items-center' >{truck.truck_number}</h6>
@@ -43,7 +47,7 @@ const History = () => {
                                         <h6 className=' w-full'>{truck.priority_level}</h6>
                                 </Card>
                             </div>
-                                {showDetails === truck.id && (
+                                {showDetails === index && (
                                         <Expand truck={truck}/>
                                         
                                 )}

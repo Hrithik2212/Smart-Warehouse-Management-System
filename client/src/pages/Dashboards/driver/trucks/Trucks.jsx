@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import TableOutLet from '../../../../components/table/TableOutLet'
 import TruckTable from './TruckTable'
 import { useSearchParams } from 'react-router-dom';

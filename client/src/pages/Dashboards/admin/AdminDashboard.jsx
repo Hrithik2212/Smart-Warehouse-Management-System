@@ -1,30 +1,20 @@
-import React, {  useState } from 'react'
+import React from 'react'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
-import useFetch from '../../../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { SlPeople } from "react-icons/sl";
-import EmployeeForm from '@/components/forms/EmployeeForm';
+import EmployeeForm from '../../../components/forms/EmployeeForm';
 import Trucks from './trucks/Trucks'
 import Employee from './Employee/Employee';
 import { IoIosPersonAdd } from "react-icons/io";
+import Progress from '../../../components/progress/Progress';
 
 const CrewDashboard = () =>  {
-  const {data,loading,error}=useFetch("/")
+
 
   const {page}=useParams()
   const activePage = page || '';
 
-  const [showDetails,setShowDetails]=useState(0)
-
-    const changeDetails = (index)=>{
-        if(showDetails===index){
-            setShowDetails(null);
-        }
-        else{
-            setShowDetails(index);
-        }
-    }
 
   
 
@@ -61,7 +51,7 @@ const CrewDashboard = () =>  {
       <section className='w-full  flex md:justify-between max-md:flex-col'>
          
         
-          <div className='w-full h-fit '>
+          <div className='w-full h-fit max-md:order-2'>
                 
                 {activePage==='' && (<Trucks />)}
                 {activePage==='addemployee' && (<EmployeeForm/>)}
@@ -70,6 +60,10 @@ const CrewDashboard = () =>  {
           
            
           </div>
+
+          <div className='max-md:order-1'>
+              <Progress/>
+            </div>
             
                         
             

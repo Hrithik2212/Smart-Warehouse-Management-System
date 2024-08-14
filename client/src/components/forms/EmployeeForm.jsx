@@ -1,8 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeForm = () => {
+    const navigate=useNavigate()
     const initialValues = {
         name: '',
         email: '',
@@ -45,11 +47,12 @@ const EmployeeForm = () => {
     });
 
     const onSubmit = (values) => {
-        console.log('Form data', values);
+        alert("Submitted")
+        navigate("/admin")
     };
 
     return (
-        <div className="mb-10 p-6 bg-white rounded-lg shadow-md">
+        <div className="mb-10 max-md:mt-5 p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Employee Form</h2>
             <Formik
                 initialValues={initialValues}
@@ -79,9 +82,11 @@ const EmployeeForm = () => {
                         <label htmlFor="employment_type" className="block text-sm font-medium text-gray-700">Employment Type</label>
                         <Field as="select" id="employment_type" name="employment_type" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="">Select Employment Type</option>
-                            <option value="FULL_TIME">Full-Time</option>
-                            <option value="PART_TIME">Part-Time</option>
-                            <option value="CONTRACT">Contract</option>
+                            <option value="FULL_TIME">Manager</option>
+                            <option value="PART_TIME">Supervisor</option>
+                            <option value="CONTRACT">Driver</option>
+                            <option value="CONTRACT">Crew</option>
+                            <option value="CONTRACT">Security</option>
                         </Field>
                         <ErrorMessage name="employment_type" component="div" className="text-red-500 text-sm mt-1" />
                     </div>

@@ -13,12 +13,24 @@ const Expand = ({truck}) => {
                             <h2>State</h2>
                         </div>
                         <div className='w-full whitespace-nowrap max-md:text-right'>
-                            <h6 className=''>{truck.truck_number}</h6>
-                            <h6 className=''>{truck?.supervisor ? (truck.supervisor):('--')}</h6>
-                            <h6 className=''>{truck?.email ? (truck.email):('--')}</h6>
-                            <h6 className=''>{truck?.number ? (truck.number):('--')}</h6>
-                            <h6 className=''>{new Date(truck.arrival).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</h6>
-                            <h6 className=''>{truck.state}</h6>
+                            <h6 className=''>{truck.truck.truck_number}</h6>
+                            <h6 className=''>{
+                                              (truck.employees && truck.employees.length>0)  ? (truck.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.name
+                                                ):("--")}</h6>
+                            <h6 className=''>{
+                                              (truck.employees && truck.employees.length>0)  ? (truck.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.email
+                                                ):("--")}</h6>
+                            <h6 className=''>{
+                                              (truck.employees && truck.employees.length>0)  ? (truck.employees
+                                              .filter(
+                                                  (item)=> item.employment_type==="supervisor")[0]?.mobile
+                                                ):("--")}</h6>
+                            <h6 className=''>{truck?.truck?.arrival_time ? (new Date(truck.truck.arrival_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })):("--")}</h6>
+                            <h6 className=''>{truck.truck.state}</h6>
                         </div>
             </div>
             <div className='flex flex-col justify-end z-0 relative'>

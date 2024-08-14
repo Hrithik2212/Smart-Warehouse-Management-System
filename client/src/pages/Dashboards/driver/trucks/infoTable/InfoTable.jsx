@@ -1,15 +1,15 @@
-import TableHead from '@/components/table/TableHead'
+import TableHead from '../../../../../components/table/TableHead'
 import React, { useEffect, useState } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
-import { addDays, startOfDay, endOfDay, setHours, setMinutes } from 'date-fns';
+import { startOfDay, endOfDay, setHours, setMinutes } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const InfoTable = () => {
   const navigate=useNavigate()
     const handleSubmit = () => {
-      console.log(time)
+      alert("submitted")
       navigate("/driver")
     };
     const [time, setTime] = useState(null);

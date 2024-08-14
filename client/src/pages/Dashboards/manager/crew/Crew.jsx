@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import TableHead from '../../../../components/table/TableHead'
 import TableOutLet from '../../../../components/table/TableOutLet'
 import Card from '../../../../components/card/Card'
 import Expand from './Expand'
 import useFetch from '../../../../hooks/useFetch'
-import RadioButtonGroup from '../../../../components/checkBox/CheckBox'
-import AuthContext from '@/context/AuthContext'
+import AuthContext from '../../../../context/AuthContext'
 
 const Crew = () => {
 
   const {authToken}=useContext(AuthContext)
   const {data,loading,error}=useFetch("getalldocks/",authToken.access_token)
-  console.log(data)
+
 
     const [showDetails,setShowDetails]=useState(null)
 

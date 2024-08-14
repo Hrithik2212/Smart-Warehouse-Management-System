@@ -1,34 +1,22 @@
-import React, {  useCallback, useContext, useEffect, useState } from 'react'
+import React from 'react'
 import './index.css'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
 import { VscHistory } from "react-icons/vsc";
 import Progress from '../../../components/progress/Progress';
-import useFetch from '../../../hooks/useFetch';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Trucks from './trucks/Trucks';
 import History from './history/History';
 import { SlPeople } from "react-icons/sl";
 import Crew from './crew/Crew';
-import AuthContext from '@/context/AuthContext';
+
 
 const ManagerDashboard = () => {
-
-
-
 
   const {page}=useParams()
   const activePage = page || '';
 
-
-  
-
-  
-
-  
-  
-  
-    const sideBarData={
+  const sideBarData={
       "head":"Manager",
       "children":[
         {

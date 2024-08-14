@@ -1,14 +1,11 @@
-import React, {  useState } from 'react'
+import React from 'react'
 import './index.css'
 import { CiDeliveryTruck } from "react-icons/ci";
 import SlideBar from '../../../components/sideBar/SideBar'
 import { VscHistory } from "react-icons/vsc";
-import Progress from '../../../components/progress/Progress';
-import useFetch from '../../../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import Trucks from './trucks/Trucks';
 import History from './history/History';
-import { SlPeople } from "react-icons/sl";
 
 
 const CrewDashboard = () =>  {
@@ -17,21 +14,6 @@ const CrewDashboard = () =>  {
   const {page}=useParams()
   const activePage = page || '';
 
-  const [showDetails,setShowDetails]=useState(0)
-
-    const changeDetails = (index)=>{
-        if(showDetails===index){
-            setShowDetails(null);
-        }
-        else{
-            setShowDetails(index);
-        }
-    }
-
-  
-
-  
-  
   
     const sideBarData={
       "head":"Staff",
@@ -63,11 +45,7 @@ const CrewDashboard = () =>  {
            
           </div>
             
-                        
-            
-            <div className='max-md:order-1'>
-              <Progress/>
-            </div>
+
         </section>
         
     </div>

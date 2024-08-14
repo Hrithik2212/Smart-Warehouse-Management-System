@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import ExpandRow from '../../../../components/table/ExpandRow'
-import AuthContext from '@/context/AuthContext'
-import BASE_URL from '@/utils/baseApi'
+import AuthContext from '../../../../context/AuthContext'
+import BASE_URL from '../../../../utils/baseApi'
 const Expand = ({truck}) => {
   const {authToken}=useContext(AuthContext)
   const handleSubmit = async () => {    

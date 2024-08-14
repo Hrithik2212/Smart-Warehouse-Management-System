@@ -3,11 +3,11 @@ import TableHead from '../../../../components/table/TableHead'
 import TableOutLet from '../../../../components/table/TableOutLet'
 import Card from '../../../../components/card/Card'
 import Expand from './Expand'
-import useFetch from '../../../../hooks/useFetch'
+
 
 const History = () => {
-    const {data,loading,error}=useFetch("/data.json")
-    const [user,setUser]=useState(null)
+    const [data,setData]=useState(null)
+
     const [showDetails,setShowDetails]=useState(0)
   
     const changeDetails = (index)=>{
@@ -18,9 +18,16 @@ const History = () => {
               setShowDetails(index);
           }
       }
-    useEffect(()=>{
-        setUser(data?.info)
-    },[data])
+
+      useEffect(()=>{
+        const fetchdata = async() =>{
+            const response=await fetch("/supervisor.json")
+            setData(await response.json())
+        }
+        fetchdata()
+
+    },[])
+
     return (
         <TableOutLet>
                 

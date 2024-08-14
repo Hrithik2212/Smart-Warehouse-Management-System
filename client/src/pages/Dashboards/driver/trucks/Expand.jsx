@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ExpandRow from '../../../../components/table/ExpandRow'
-import DropDown from '../../../../components/dropDown/DropDown'
+
 import { Link } from 'react-router-dom'
 const Expand = ({truck}) => {
 
