@@ -16,16 +16,16 @@ const Card = ({ title, description }) => {
 const Landing = () => {
   const features = [
     {
-      title: 'VPC for Data Privacy and Cyber Security',
-      description: 'Implementing a VPC to ensure secure data transmission and storage within isolated environments.',
-    },
-    {
       title: 'Efficient Employee Crew Management and Scheduling',
       description: 'Streamline employee scheduling and management for optimal productivity and resource allocation.',
     },
     {
       title: 'Priority and Time-Based Dock Scheduling for Trucks',
       description: 'Optimize dock scheduling with priority and time-based algorithms to reduce delays and maximize efficiency.',
+    },
+    {
+      "title": "Comprehensive Analytics Dashboard",
+      "description": "Gain insights into operations with a comprehensive analytics dashboard that provides real-time data."
     },
     {
       title: 'Mobile Notification Alert System',
@@ -39,17 +39,13 @@ const Landing = () => {
       title: 'Responsive and Cross-Compatibility on All Devices',
       description: 'Ensure that the application works seamlessly across all devices with responsive design.',
     },
-    {
-      title: 'Efficient Returning Process Streamlined into UI Alerts',
-      description: 'Simplify the returning process with streamlined UI alerts and notifications for user convenience.',
-    },
   ];
   return (
     <div className="flex flex-col items-center justify-center space-y-4 min-h-screen">
-      <div className="font-bold text-5xl md:text-8xl">Smart Warehouse</div>
+      <div className="font-bold text-5xl md:text-8xl">Smart Distribution Center</div>
       <div className="w-full md:max-w-6xl px-8">
         <p className="text-center text-lg">
-          Revolutionizing inventory management with our smart warehouse solution, we seamlessly integrate advanced technology to ensure efficient, accurate, and secure operations. Our system optimizes storage, streamlines processes, and enhances visibility, transforming the way you manage your warehouse for the modern era.
+          Revolutionizing inventory management with our solution, we seamlessly integrate advanced technology to ensure efficient, accurate, and secure operations. Our system optimizes storage, streamlines processes, and enhances visibility, transforming the way you manage your warehouse for the modern era.
         </p>
       </div>
       <div className="w-full md:max-w-6xl px-8">
@@ -69,3 +65,4 @@ const Landing = () => {
 }
 
 export default Landing
+

@@ -12,7 +12,7 @@ const NavBar=()=>{
           <section style={{"fontSize":"var(--secondary-font-size)"}} className='font-[var(--secondary-font-weight)] '>
               <Link to="/" className='flex gap-3 justify-center'>
                 <MdAddTask size={30} className='text-[var(--inverted-text-color)]'/>
-                <h1 className=''>Smart Warehouse</h1>
+                <h1 className=''>Smart Distribution center</h1>
               </Link>
           </section>
           <section className='relative'>
