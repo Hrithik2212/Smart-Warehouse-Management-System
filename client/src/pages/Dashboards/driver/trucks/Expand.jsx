@@ -44,7 +44,7 @@ const Expand = ({truck}) => {
                         
             </div>
             <div className='flex md:flex-col gap-3 justify-end z-0 relative'>
-                      <Link to={`?info=true`} className='bg-[var(--primary-btn)] text-[var(--text-secondary-color)] max-md:mx-auto py-3 px-6 text-center rounded-md'>Invoice</Link>
+                      <Link to={`?info=${truck.truck_number}`} className='bg-[var(--primary-btn)] text-[var(--text-secondary-color)] max-md:mx-auto py-3 px-6 text-center rounded-md'>Invoice</Link>
             </div>
     </ExpandRow>
     

@@ -1,7 +1,7 @@
 [
   {
-    "truck_priority": 5,
-    "arrival_time": "2024-08-15T04:04:47",
+    "truck_priority": 4,
+    "arrival_time": "2024-08-15T18:11:19",
     "truck_number": "TRUCK-42",
     "driver": {
       "id": 42,
@@ -20,8 +20,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 4,
-    "arrival_time": "2024-08-15T01:22:14",
+    "truck_priority": 3,
+    "arrival_time": "2024-08-15T15:28:57",
     "truck_number": "TRUCK-43",
     "driver": {
       "id": 43,
@@ -40,8 +40,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 2,
-    "arrival_time": "2024-08-15T04:26:59",
+    "truck_priority": 1,
+    "arrival_time": "2024-08-15T19:16:41",
     "truck_number": "TRUCK-44",
     "driver": {
       "id": 44,
@@ -60,8 +60,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 3,
-    "arrival_time": "2024-08-15T17:52:29",
+    "truck_priority": 1,
+    "arrival_time": "2024-08-15T20:21:19",
     "truck_number": "TRUCK-45",
     "driver": {
       "id": 45,
@@ -80,8 +80,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 5,
-    "arrival_time": "2024-08-15T14:28:24",
+    "truck_priority": 4,
+    "arrival_time": "2024-08-15T16:25:03",
     "truck_number": "TRUCK-46",
     "driver": {
       "id": 46,
@@ -100,8 +100,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 4,
-    "arrival_time": "2024-08-15T16:16:53",
+    "truck_priority": 2,
+    "arrival_time": "2024-08-15T23:50:03",
     "truck_number": "TRUCK-47",
     "driver": {
       "id": 47,
@@ -120,8 +120,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 1,
-    "arrival_time": "2024-08-15T09:59:55",
+    "truck_priority": 5,
+    "arrival_time": "2024-08-15T14:42:32",
     "truck_number": "TRUCK-48",
     "driver": {
       "id": 48,
@@ -140,8 +140,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 2,
-    "arrival_time": "2024-08-15T10:03:51",
+    "truck_priority": 3,
+    "arrival_time": "2024-08-15T17:40:23",
     "truck_number": "TRUCK-49",
     "driver": {
       "id": 49,
@@ -160,8 +160,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 4,
-    "arrival_time": "2024-08-15T10:07:14",
+    "truck_priority": 1,
+    "arrival_time": "2024-08-15T23:25:43",
     "truck_number": "TRUCK-50",
     "driver": {
       "id": 50,
@@ -180,8 +180,8 @@
     "state": "Pending"
   },
   {
-    "truck_priority": 2,
-    "arrival_time": "2024-08-15T03:18:22",
+    "truck_priority": 1,
+    "arrival_time": "2024-08-15T20:36:55",
     "truck_number": "TRUCK-51",
     "driver": {
       "id": 51,

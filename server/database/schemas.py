@@ -150,3 +150,8 @@ class DockResponse(BaseModel):
         orm_mode = True
 
 
+
+
+class TruckUpdateRequest(BaseModel):
+    truck_id: str
+    timedate: datetime

@@ -19,7 +19,7 @@ def schedule_trucks(session: Session,dock_allocator: dock_allocator.DockAllocato
 
     # Get all trucks scheduled for today with arrival time greater than now
     trucks = session.query(Truck).filter(
-        #func.date(Truck.arrival_time) == today,
+        func.date(Truck.arrival_time) == today,
         Truck.arrival_time > now
     ).all()
 
