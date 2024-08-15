@@ -2,14 +2,19 @@ from datetime import datetime, timedelta
 from fastapi import APIRouter, Depends, File, Request, UploadFile, HTTPException
 from sqlalchemy.orm import Session
 import pandas as pd
+from sqlalchemy import func
 from server.database.database import get_db
 from server.database.models.employeeModel import Employee
 from server.database.models.truckModel import Truck , Goods,Dock,TruckQueue
 from server.controllers import truck_scehdule_controller
 from server.controllers.auth import verify_password,verify_access_token,authenticate_request
 from server.controllers import truck_controller,dock_allocator
-from server.database.schemas import TruckCreate,TruckResponse,DockResponse
+from server.database.schemas import TruckCreate,TruckResponse,DockResponse,TruckUpdateRequest
 from typing import List
+from typing import Optional,List
+from pytz import timezone
+
+
 router = APIRouter()
 
 
@@ -79,7 +84,12 @@ async def get_truck(request: Request, db: Session = Depends(get_db)):
 async def get_all_truck(request: Request, db: Session = Depends(get_db)):
     role=request.state.user.get("role")
     if role=="manager" or role=="admin":
-       return db.query(Truck).all()
+       now = datetime.now()
+       today = now.date()
+       
+       return db.query(Truck).filter(
+           func.date(Truck.arrival_time) == today
+       ).all()
     else:
         raise HTTPException(status_code=403, detail="Unautherized")
 
@@ -139,6 +149,22 @@ def truncate_dock(docks_id:int,dock_allocator: dock_allocator.DockAllocator = De
     except Exception as e:
         print(e)
         raise HTTPException(status_code=400, detail="Unable to release") 
+
+
+
+@router.post("/createinvoice/")
+async def update_timedate(request:TruckUpdateRequest, db: Session = Depends(get_db)):
+    try:
+        truck = db.query(Truck).filter(Truck.truck_number==request.truck_id).first()
+        local_tz = timezone("Asia/Kolkata")
+        truck.arrival_time = request.timedate.astimezone(local_tz)
+        db.commit()
+        return {"message": f"Timedate updated successfully to {request.timedate} for all trucks."}
+    except:
+        raise HTTPException(status_code=400, detail="Unable to update time")
+    
+
+
 
 
 @router.get("/trucks/truncate_trucks")

@@ -42,12 +42,13 @@ if not drivers:
 invoices = []
 for driver in drivers:
     # Set arrival time to a random time tomorrow
-    tomorrow = datetime.now() + timedelta(days=1)
+    tomorrow = datetime.now()
+    hour=tomorrow + timedelta(hours=1)
     random_time = datetime(
         year=tomorrow.year,
         month=tomorrow.month,
         day=tomorrow.day,
-        hour=random.randint(0, 23),
+        hour=random.randint(hour.hour, 23),
         minute=random.randint(0, 59),
         second=random.randint(0, 59)
     )

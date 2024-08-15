@@ -13,7 +13,7 @@ const Trucks = () => {
         
     
         <TableOutLet>
-                {info==="true" ?(
+                {info ?(
                   <InfoTable />
                 ):(
                   <TruckTable />
