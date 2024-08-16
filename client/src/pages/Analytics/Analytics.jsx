@@ -1,141 +1,115 @@
-import SideBar from '@/components/sideBar/SideBar';
+
 import React from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
-import { LineChart } from '@mui/x-charts/LineChart';
-import { PieChart } from '@mui/x-charts/PieChart';
-import { ChartContainer } from '@mui/x-charts/ChartContainer';
-import { BarPlot } from '@mui/x-charts/BarChart';
+import Network from '@/components/graphs/Network';
+import SanKey from '@/components/graphs/SanKey';
 
-// Updated data representing warehouse metrics
-const inventoryLevels = [12000, 15000, 11000, 18000, 16000, 13000];
-const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+import {
+    LineChart, Line, BarChart, Bar,AreaChart,Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar
+  } from 'recharts';
 
+
+
+
+const warehouseStatusData = [
+    { name: 'Process', value: 7 ,color:"#5522D0"},
+    { name: 'At To Arrival', value: 10 ,color:"#5dceff"},
+    { name: 'Idle', value: 5 ,color:"#ab79f0"},
+    { name: 'Maintenance', value: 2 ,color:"#90ca71"},
+  ];
+  
+  const transportEfficiencyData = [
+    { name: 'DC 1', efficiency: 80 },
+    { name: 'DC 2', efficiency: 75 },
+    { name: 'DC 3', efficiency: 90 },
+    { name: 'DC 4', efficiency: 85 },
+  ];
+  
+  const inventoryLevelsData = [
+    { day: 'Monday', level: 200 },
+    { day: 'Tuesday', level: 220 },
+    { day: 'Wednesday', level: 210 },
+    { day: 'Thursday', level: 230 },
+    { day: 'Friday', level: 240 },
+    { day: 'Saturday', level: 250 },
+    { day: 'Sunday', level: 190 },
+  ];
+
+  
+  
+  const inventoryFluctuationsData = [
+    { week: 'Week 1', fluctuation: 5 },
+    { week: 'Week 2', fluctuation: 10 },
+    { week: 'Week 3', fluctuation: 15 },
+    { week: 'Week 4', fluctuation: 8 },
+    { week: 'Week 5', fluctuation: 12 },
+  ];
 const Analytics = () => {
+
+
     return (
-        <div className='flex'>
-            <SideBar />
+        <div className='flex mb-20'>
             <div className='flex flex-col items-center justify-center flex-1 gap-10'>
                 <div className='flex flex-col lg:flex-row gap-10'>
-                    <div className='border-2 border-black rounded-lg h-auto lg:w-[500px]'>
-                        <h3 className='text-center font-semibold pt-4 px-2'>Warehouse Operations Status</h3>
+                    <div className='border-2 border-black rounded-lg h-auto flex flex-col justify-center items-center'>
+                        <h3 className='text-center font-semibold  px-2'>Warehouse Operations Status</h3>
                         <div className='hidden md:block'>
-                            <BarChart
-                                xAxis={[{ scaleType: 'band', data: ['Loaded', 'Unloaded', 'In Transit'] }]}
-                                series={[
-                                    { data: [500, 700, 300], label: 'Pallets' },
-                                    { data: [600, 500, 400], label: 'Crates' },
-                                    { data: [700, 800, 600], label: 'Boxes' }
-                                ]}
-                                width={500}
-                                height={300}
-                            />
-                        </div>
-                        <div className='md:hidden'>
-                            <BarChart
-                                xAxis={[{ scaleType: 'band', data: ['Loaded', 'Unloaded', 'In Transit'] }]}
-                                series={[
-                                    { data: [500, 700, 300], label: 'Pallets' },
-                                    { data: [600, 500, 400], label: 'Crates' },
-                                    { data: [700, 800, 600], label: 'Boxes' }
-                                ]}
-                                width={300}
-                                height={200}
-                            />
+                        <BarChart
+                            width={600}
+                            height={300}
+                            data={inventoryFluctuationsData}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                            >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="week" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="fluctuation" fill="#2061e2" />
+                        </BarChart>
+                        
                         </div>
                     </div>
-                    <div className='border-2 border-black rounded-lg lg:h-auto lg:w-[500px]'>
-                        <h3 className='text-center text-sm md:text-base font-semibold pt-4 px-2'>Transport Efficiency from Warehouse to Distribution Centers</h3>
-                        <div className='hidden md:block'>
-                            <LineChart
-                                xAxis={[{ data: [1, 2, 3, 4, 5, 6] }]}
-                                series={[
-                                    {
-                                        data: [95, 88, 90, 85, 92, 87],
-                                        label: 'Efficiency (%)'
-                                    },
-                                ]}
-                                width={500}
-                                height={300}
-                            />
-                        </div>
-                        <div className='md:hidden'>
-                            <LineChart
-                                xAxis={[{ data: [1, 2, 3, 4, 5, 6] }]}
-                                series={[
-                                    {
-                                        data: [95, 88, 90, 85, 92, 87],
-                                        label: 'Efficiency (%)'
-                                    },
-                                ]}
-                                width={300}
-                                height={200}
-                            />
+                    <div className='border-2 border-black rounded-lg lg:h-auto flex flex-col justify-center items-center'>
+                        <h3 className='text-center text-sm md:text-base font-semibold pt-4 px-2'>Transport Network</h3>
+                       
+                        <div className='w-fit'>
+                            <Network/>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col lg:flex-row gap-10'>
-                    <div className='border-2 border-black rounded-lg h-[300px] lg:w-[500px]'>
-                        <h3 className='text-center font-semibold pt-4 px-2'>Average Inventory Levels per Day</h3>
-                        <div className='hidden md:block'>
-                            <PieChart
-                                series={[
-                                    {
-                                        data: [
-                                            { id: 0, value: 12000, label: 'Monday' },
-                                            { id: 1, value: 15000, label: 'Tuesday' },
-                                            { id: 2, value: 11000, label: 'Wednesday' },
-                                            { id: 3, value: 18000, label: 'Thursday' },
-                                            { id: 4, value: 16000, label: 'Friday' },
-                                            { id: 5, value: 13000, label: 'Saturday' },
-                                        ],
-                                    },
-                                ]}
-                                width={400}
-                                height={200}
-                            />
-                        </div>
-                        <div className='md:hidden'>
-                            <PieChart
-                                series={[
-                                    {
-                                        data: [
-                                            { id: 0, value: 12000, label: 'Monday' },
-                                            { id: 1, value: 15000, label: 'Tuesday' },
-                                            { id: 2, value: 11000, label: 'Wednesday' },
-                                            { id: 3, value: 18000, label: 'Thursday' },
-                                            { id: 4, value: 16000, label: 'Friday' },
-                                            { id: 5, value: 13000, label: 'Saturday' },
-                                        ],
-                                    },
-                                ]}
-                                width={300}
-                                height={200}
-                            />
-                        </div>
+                
+                <div className='flex lg:flex-row gap-10 px-5'>
+                    <div className='border-2 w-full border-black rounded-lg  flex flex-col justify-center items-center'>
+                            <h3 className='text-center text-sm md:text-base font-semibold px-2'>Transport Efficiency from Warehouse to Distribution Centers</h3>
+                            <div className='w-full'>
+                                <SanKey/>
+                            </div>
+                        
                     </div>
-                    <div className='border-2 border-black rounded-lg lg:h-[300px] lg:w-[500px] mb-10'>
-                        <h3 className='text-center font-semibold pt-4 px-2'>Weekly Inventory Fluctuations</h3>
-                        <div className='hidden md:block'>
-                            <ChartContainer
-                                width={500}
-                                height={300}
-                                series={[{ data: inventoryLevels, label: 'Inventory Levels', type: 'bar' }]}
-                                xAxis={[{ scaleType: 'band', data: daysOfWeek }]}
-                            >
-                                <BarPlot />
-                            </ChartContainer>
+                    <div className='border-2 border-black rounded-lg w-full flex flex-col justify-center items-center px-5 py-4'>
+                        <h3 className='text-center font-semibold '>Average Inventory Levels per Day</h3>
+                        <div className='w-full h-full flex flex-col justify-center items-center '>
+                        <PieChart width={400} height={400}>
+                                <Pie
+                                    dataKey="value"
+                                    data={warehouseStatusData}
+                                    cx={200}
+                                    cy={200}
+                                    outerRadius={150}
+                                    fill="#8884d8"
+                                    label
+                                >
+                                    {warehouseStatusData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                        </PieChart>
+                        
                         </div>
-                        <div className='md:hidden'>
-                            <ChartContainer
-                                width={300}
-                                height={200}
-                                series={[{ data: inventoryLevels, label: 'Inventory Levels', type: 'bar' }]}
-                                xAxis={[{ scaleType: 'band', data: daysOfWeek }]}
-                            >
-                                <BarPlot />
-                            </ChartContainer>
-                        </div>
+                       
                     </div>
+                   
                 </div>
             </div>
         </div>

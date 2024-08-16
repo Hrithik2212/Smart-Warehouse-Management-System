@@ -14,9 +14,12 @@ const InfoTable = () => {
   const dock = searchParams.get('dock');
   
     const products = [
-      { productid: "1234" },
-      { productid: "4567" },
-      { productid: "986886" }
+      { "productid": "prod-d8f1k5x6w" },
+      { "productid": "prod-n9w8y7p2e" },
+      { "productid": "prod-t5v0z4m3r" },
+      { "productid": "prod-b1n2j3v8y" },
+      { "productid": "prod-x7o9e5d4b" },
+      { "productid": "prod-k3p6u1q2z" }
   ];
     const [formData, setFormData] = useState([{
       productid: '',

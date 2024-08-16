@@ -31,6 +31,7 @@
   --inverted-color:rgb(240, 240, 240);
 
 
+
   /*text color*/
   --text-primary-color: rgb(0,0,0);
   --text-secondary-color: rgb(255,255,255);
@@ -39,6 +40,7 @@
   --positive-text-color:rgb(0, 214, 162);
   --warning-text-color: #e01e1e;
   --light-text-color:#666;
+
 
   /*Button color*/
   --primary-btn:rgb(85, 34, 208);

@@ -3,6 +3,7 @@ import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom'
 import { jwtDecode } from "jwt-decode";
 import { IoIosLogOut } from "react-icons/io";
 import { MdAddTask } from "react-icons/md";
+import BASE_URL from '@/utils/baseApi';
 import './index.css'
 const NavBar=()=>{
     const {logoutUser,user}=useContext(AuthContext)
@@ -24,7 +25,7 @@ const NavBar=()=>{
     )
 }
 
-const API_BASE_URL = "http://127.0.0.1:8000"
+
 const AuthContext = createContext()
 
 export default AuthContext
@@ -44,7 +45,7 @@ export const AuthProvider = () =>{
     const loginUser = async (e) =>{
         e.preventDefault()
         try{
-            let response = await fetch(`${API_BASE_URL}/token/`,{
+            let response = await fetch(`${BASE_URL}token/`,{
                 method:"POST",
                 headers:{
                     'Content-Type':'application/x-www-form-urlencoded'
@@ -136,7 +137,7 @@ export const AuthProvider = () =>{
     const registerUser = async (e) =>{
         e.preventDefault();
         try{
-            let  res=await fetch (`${API_BASE_URL}/register/`, {
+            let  res=await fetch (`${BASE_URL}register/`, {
               method:'POST',
               headers:{'Content-type':'Application/json'},
               body: JSON.stringify({

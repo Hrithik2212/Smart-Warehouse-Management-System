@@ -7,7 +7,7 @@ const SideBar = ({ sideBarData, activePage }) => {
 
   const { user } = useContext(AuthContext)
   return (
-    <aside className='md:h-[70vh] z-10  max-h-[800px] md:top-10 bg-[var(--secondary-color)] md:mx-2 md:w-[30%] md:sticky md:max-w-[250px] slidebar-shadow md:py-20 md:px-5 rounded-t-lg md:rounded-lg max-md:bottom-0 max-md:fixed  max-md:w-full'>
+    <aside className='md:h-[75vh] z-10  max-h-[900px] md:top-10 bg-[var(--secondary-color)] md:mx-2 md:w-[30%] md:sticky md:max-w-[250px] slidebar-shadow md:py-20 md:px-5 rounded-t-lg md:rounded-lg max-md:bottom-0 max-md:fixed  max-md:w-full'>
       <section className='max-md:hidden w-full  flex flex-col gap-5 items-center justify-center'>
         <h1 className='text-[2rem]'>{sideBarData?.head?.toUpperCase()}</h1>
         <div>

@@ -8,18 +8,15 @@ import Trucks from './trucks/Trucks'
 import Employee from './Employee/Employee';
 import { IoIosPersonAdd } from "react-icons/io";
 import Progress from '../../../components/progress/Progress';
+import { BsGraphUpArrow } from "react-icons/bs";
+import Analytics from '@/pages/Analytics/Analytics';
 
-const CrewDashboard = () =>  {
+const AdminDashboard = () =>  {
 
 
   const {page}=useParams()
   const activePage = page || '';
 
-
-  
-
-  
-  
   
     const sideBarData={
         "head":"Admin",
@@ -40,6 +37,12 @@ const CrewDashboard = () =>  {
           "label":<SlPeople size={25}/>,
           "path":"employees"
         },
+        {
+          "title":"Analytics",
+          "label":<BsGraphUpArrow size={25}/>,
+          "path":"analytics"
+        },
+
         
       ],
     }
@@ -56,6 +59,7 @@ const CrewDashboard = () =>  {
                 {activePage==='' && (<Trucks />)}
                 {activePage==='addemployee' && (<EmployeeForm/>)}
                 {activePage==='employees' && (<Employee/>)}
+                {activePage==='analytics' && (<Analytics/>)}
                 
           
            
@@ -74,4 +78,4 @@ const CrewDashboard = () =>  {
   )
 }
 
-export default CrewDashboard
+export default AdminDashboard
